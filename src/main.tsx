@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { createRoot } from "react-dom/client";
-import { Canvas, useFrame, useLoader } from "@react-three/fiber";
+import { Canvas, useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import "./styles.css";
 
@@ -8,7 +8,7 @@ let neck: THREE.Object3D<THREE.Object3DEventMap>;
 let waist: THREE.Object3D<THREE.Object3DEventMap>;
 
 function Scene() {
-  const avatar = useLoader(GLTFLoader, "/static/models/avatar.glb");
+  const avatar = useLoader(GLTFLoader, "/public/models/avatar.glb");
   avatar.scene.traverse((o) => {
     console.log(o.name);
     if (o.name === "Neck") {
@@ -27,7 +27,7 @@ function Scene() {
   return <primitive object={avatar.scene} scale={1} position={[0, -3, 0]} />;
 }
 
-createRoot(document.getElementById("root")).render(
+createRoot(document.getElementById("root") as HTMLInputElement).render(
   <Canvas className="h-128">
     <ambientLight intensity={Math.PI / 2} />
     <spotLight
@@ -42,11 +42,7 @@ createRoot(document.getElementById("root")).render(
   </Canvas>,
 );
 
-document.addEventListener("mousemove", function (e) {
-  var mousecoords = getMousePos(e);
-});
-
-function getMousePos(e) {
+function getMousePos(e: any) {
   return { x: e.clientX, y: e.clientY };
 }
 
@@ -58,13 +54,13 @@ document.addEventListener("mousemove", function (e) {
   }
 });
 
-function moveJoint(mouse, joint, degreeLimit) {
+function moveJoint(mouse: any, joint: any, degreeLimit: any) {
   let degrees = getMouseDegrees(mouse.x, mouse.y, degreeLimit);
   joint.rotation.y = THREE.MathUtils.degToRad(degrees.x);
   joint.rotation.x = THREE.MathUtils.degToRad(degrees.y);
 }
 
-function getMouseDegrees(x, y, degreeLimit) {
+function getMouseDegrees(x: any, y: any, degreeLimit: any) {
   let dx = 0,
     dy = 0,
     xdiff,
