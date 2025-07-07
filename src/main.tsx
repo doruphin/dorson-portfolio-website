@@ -8,7 +8,7 @@ let neck: THREE.Object3D<THREE.Object3DEventMap>;
 let waist: THREE.Object3D<THREE.Object3DEventMap>;
 
 function Scene() {
-  const avatar = useLoader(GLTFLoader, "/public/models/avatar.glb");
+  const avatar = useLoader(GLTFLoader, "/models/avatar.glb");
   avatar.scene.traverse((o) => {
     console.log(o.name);
     if (o.name === "Neck") {
