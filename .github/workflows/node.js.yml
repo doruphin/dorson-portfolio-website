@@ -19,6 +19,7 @@ jobs:
         run: |
           git config --global user.email "automated@runner.com"
           git config --global user.name "beep boop robot"
+          git remote set-url origin https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/doruphin/dorson-portfolio-website.git
 
       - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
@@ -27,6 +28,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
       - run: npm ci
-      - run: npm run build
       - run: echo www.dorsontang.xyz > dist/CNAME
-      - run: gh-pages -d dist -u "Dorson Tang <apersonnameddorson@gmail.com>" -r https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/doruphin/dorson-portfolio-website.git
+      - run: npm run build
+      - run: npm run deploy
