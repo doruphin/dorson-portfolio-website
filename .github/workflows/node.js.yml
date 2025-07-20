@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Automatic website deployment
 
 on:
   push:
@@ -27,4 +27,5 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: echo www.dorsontang.xyz > dist/CNAME
+      - run: npm install -g gh-pages
       - run: gh-pages -d dist
