@@ -1,30 +1,33 @@
 import { useEffect, useState } from "react";
 import "./styles.css";
 import clsx from "clsx";
+import talkingSfx from "../public/audio/sans.mp3";
+import useSound from "use-sound";
 
 export function DialogueBox({ dialogue }: { dialogue: { text: string }[] }) {
   const [displayedText, setDisplayedText] = useState("");
-
   const [doneSpeaking, setDoneSpeaking] = useState(false);
 
   var ind = 0;
-
   var textIndex = 0;
 
   function printText() {
+    play();
     var refreshIntervalId = setInterval(() => {
       ind++;
       setDisplayedText(dialogue[textIndex].text.substring(0, ind));
       if (ind === dialogue[textIndex].text.length) {
         setDoneSpeaking(true);
         clearInterval(refreshIntervalId);
+        stop();
       }
     }, 25);
   }
-
   useEffect(() => {
     printText();
   }, []);
+
+  const [play, { stop }] = useSound(talkingSfx, { volume: 0.2 });
 
   return (
     <div
