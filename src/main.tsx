@@ -1,9 +1,5 @@
 import { createRoot } from "react-dom/client";
-import { Canvas } from "@react-three/fiber";
 import "./styles.css";
-import { DialogueBox } from "./dialogue_box";
-import { BackgroundScene } from "./background_scene";
-import dialogue from "./dialogue.json";
 import { useEffect } from "react";
 
 export function Setup() {

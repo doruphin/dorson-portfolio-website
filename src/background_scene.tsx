@@ -33,25 +33,29 @@ export function BackgroundScene() {
   );
 }
 
-function getMousePos(e: any) {
+function getMousePos(e: MouseEvent) {
   return { x: e.clientX, y: e.clientY };
 }
 
 document.addEventListener("mousemove", function (e) {
-  var mousecoords = getMousePos(e);
+  const mousecoords = getMousePos(e);
   if (neck && waist) {
     moveJoint(mousecoords, neck, 50);
     moveJoint(mousecoords, waist, 30);
   }
 });
 
-function moveJoint(mouse: any, joint: any, degreeLimit: any) {
-  let degrees = getMouseDegrees(mouse.x, mouse.y, degreeLimit);
+function moveJoint(
+  mouse: { x: number; y: number },
+  joint: THREE.Object3D<THREE.Object3DEventMap>,
+  degreeLimit: number,
+) {
+  const degrees = getMouseDegrees(mouse.x, mouse.y, degreeLimit);
   joint.rotation.y = THREE.MathUtils.degToRad(degrees.x);
   joint.rotation.x = THREE.MathUtils.degToRad(degrees.y);
 }
 
-function getMouseDegrees(x: any, y: any, degreeLimit: any) {
+function getMouseDegrees(x: number, y: number, degreeLimit: number) {
   let dx = 0,
     dy = 0,
     xdiff,
@@ -59,7 +63,7 @@ function getMouseDegrees(x: any, y: any, degreeLimit: any) {
     ydiff,
     yPercentage;
 
-  let w = { x: window.innerWidth, y: window.innerHeight };
+  const w = { x: window.innerWidth, y: window.innerHeight };
 
   // Left (Rotates neck left between 0 and -degreeLimit)
 

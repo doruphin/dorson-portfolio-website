@@ -8,12 +8,12 @@ export function DialogueBox({ dialogue }: { dialogue: { text: string }[] }) {
   const [displayedText, setDisplayedText] = useState("");
   const [doneSpeaking, setDoneSpeaking] = useState(false);
 
-  var ind = 0;
-  var textIndex = 0;
+  let ind = 0;
+  let textIndex = 0;
 
   function printText() {
     play();
-    var refreshIntervalId = setInterval(() => {
+    const refreshIntervalId = setInterval(() => {
       ind++;
       setDisplayedText(dialogue[textIndex].text.substring(0, ind));
       if (ind === dialogue[textIndex].text.length) {
