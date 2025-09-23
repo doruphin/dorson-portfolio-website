@@ -1,8 +1,8 @@
 import { createRoot } from "react-dom/client";
 import "./styles.css";
-import { useEffect } from "react";
+import { useEffect, type ReactNode } from "react";
 
-export function Setup() {
+function Setup() {
   const slogans = [
     "Now in HD!",
     "As seen on TV!",
@@ -16,6 +16,18 @@ export function Setup() {
 
   return <></>;
 }
+
+const SnapSection: React.FC<{ children: ReactNode }> = ({ children }) => {
+  return (
+    <div className="snap-always snap-center">
+      <div className={`relative min-h-screen flex `}>
+        <div className="container max-w-screen-xl mx-auto flex flex-col justify-center items-center text-4xl text-white">
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 createRoot(document.getElementById("root") as HTMLInputElement).render(
   <>
@@ -39,21 +51,21 @@ createRoot(document.getElementById("root") as HTMLInputElement).render(
     <Setup />
 
     <div className="snap-y snap-mandatory overflow-y-scroll h-screen ">
-      <div className="snap-always snap-center">
-        <div className={`relative min-h-screen flex `}>
-          <div className="container max-w-screen-xl mx-auto flex justify-center items-center text-4xl text-white">
-            Page 1
-          </div>
+      <SnapSection>
+        <img
+          src="/images/favicon.ico"
+          className="w-32 border-2 rounded-full p-2 mb-8"
+        />
+        <div className="mb-8 bg-yellow-200 w-full flex justify-center text-black">
+          UNDER CONSTRUCTION
         </div>
-      </div>
+        <div className="w-2/3 h-1/2 border-2 rounded-2xl p-8">
+          <div>Dorson Tang</div>
+          <div>This is gonna be a really cool website, i promise</div>
+        </div>
+      </SnapSection>
 
-      <div className="snap-always snap-center">
-        <div className={`relative min-h-screen flex `}>
-          <div className="container max-w-screen-xl mx-auto flex justify-center items-center text-4xl text-white">
-            Page 2
-          </div>
-        </div>
-      </div>
+      <SnapSection>Page 2</SnapSection>
     </div>
   </>,
 );
