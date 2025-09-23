@@ -21,7 +21,7 @@ const SnapSection: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <div className="snap-always snap-center">
       <div className={`relative min-h-screen flex `}>
-        <div className="container max-w-screen-xl mx-auto flex flex-col justify-center items-center text-4xl text-white">
+        <div className="container max-w-screen-xl mx-auto flex flex-col justify-center items-center text-4xl text-white p-8">
           {children}
         </div>
       </div>
@@ -59,6 +59,7 @@ createRoot(document.getElementById("root") as HTMLInputElement).render(
         <div className="mb-8 bg-yellow-200 w-full flex justify-center text-black">
           UNDER CONSTRUCTION
         </div>
+        <img src="images/construction.gif" alt="lol" className="mb-8" />
         <div className="w-2/3 h-1/2 border-2 rounded-2xl p-8">
           <div>Dorson Tang</div>
           <div>This is gonna be a really cool website, i promise</div>
