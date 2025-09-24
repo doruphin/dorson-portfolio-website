@@ -1,8 +1,9 @@
 import { createRoot } from "react-dom/client";
 import "./styles.css";
 import { useEffect, type ReactNode } from "react";
+import { Projects } from "./projects";
 
-function Setup() {
+export function Setup() {
   const slogans = [
     "Now in HD!",
     "As seen on TV!",
@@ -17,7 +18,9 @@ function Setup() {
   return <></>;
 }
 
-const SnapSection: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const SnapSection: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   return (
     <div className="snap-always snap-center">
       <div className={`relative min-h-screen flex `}>
@@ -59,14 +62,29 @@ createRoot(document.getElementById("root") as HTMLInputElement).render(
         <div className="mb-8 bg-yellow-200 w-full flex justify-center text-black">
           UNDER CONSTRUCTION
         </div>
+        <div>introduction</div>
         <img src="images/construction.gif" alt="lol" className="mb-8" />
         <div className="w-2/3 h-1/2 border-2 rounded-2xl p-8">
-          <div>Dorson Tang</div>
           <div>This is gonna be a really cool website, i promise</div>
         </div>
       </SnapSection>
 
-      <SnapSection>Page 2</SnapSection>
+      <SnapSection>Work Experience</SnapSection>
+
+      <SnapSection>
+        Other Projects <Projects />
+      </SnapSection>
+
+      <SnapSection>
+        <div>Creativity</div>
+        <ul>
+          <li>youtube</li>
+          <li>3d printing</li>
+          {/* <li>cosplay?</li> */}
+        </ul>
+      </SnapSection>
+
+      <SnapSection>Contact</SnapSection>
     </div>
   </>,
 );
