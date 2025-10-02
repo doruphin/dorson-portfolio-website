@@ -22,9 +22,9 @@ export const SnapSection: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   return (
-    <div className="snap-always snap-center">
+    <div className="snap-always snap-center bg-black">
       <div className={`relative min-h-screen flex `}>
-        <div className="container max-w-screen-xl mx-auto flex flex-col justify-center items-center text-4xl text-white p-8">
+        <div className="container max-w-screen-xl mx-auto flex flex-col justify-center items-center text-4xl text-lighter p-8 ">
           {children}
         </div>
       </div>
@@ -72,7 +72,7 @@ createRoot(document.getElementById("root") as HTMLInputElement).render(
       <SnapSection>Work Experience</SnapSection>
 
       <SnapSection>
-        Other Projects <Projects />
+        <Projects />
       </SnapSection>
 
       <SnapSection>
