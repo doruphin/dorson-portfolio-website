@@ -1,18 +1,26 @@
-@import url("https://fonts.googleapis.com/css2?family=Cal+Sans&family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Jersey+15&family=Pixelify+Sans:wght@400..700&display=swap");
 @import "tailwindcss";
 
 /* https://coolors.co/palette/0d1b2a-1b263b-415a77-778da9-e0e1dd */
 
+@utility no-scrollbar {
+  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+}
+
+body {
+  overflow: hidden;
+}
+
 @theme {
-  --color-darker: #0d1b2a;
-  --color-dark: #1b263b;
-  --color-middle: #415a77;
-  --color-light: #778da9;
-  --color-lighter: #e0e1dd;
+  --color-primary: #c4dfdf;
+  --color-secondary: #d2e9e9;
+  --color-tertiary: #e3f4f4;
+  --color-quaterniary: #f8f6f4;
+  --color-link: #0000ee;
 }
 
 * {
-  font-family: "Cal Sans", sans-serif;
+  font-family: "Jersey 15", sans-serif;
 }
 
 @keyframes blob {

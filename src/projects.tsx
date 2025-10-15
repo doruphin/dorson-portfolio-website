@@ -1,85 +1,67 @@
 import { useState, type ReactNode } from "react";
 import "./styles.css";
+import clsx from "clsx";
 
 type Project = {
-  date: string;
+  link: string;
   icon: string;
+  bg: string;
   title: string;
   description: string;
-  embed: ReactNode;
-  personal: string;
   technologies: string[];
 };
 
-// this website
-// bublstore
-// scip net
+// inspirations:
+// https://poolsuite.net/
+// https://devils.neocities.org/
 
-// execution order
-// flicker
+// in the future: SNES cartirdges with the banner being the image
 
 const projects: Project[] = [
   {
-    date: "Sept 31",
-    icon: "images/favicon.ico",
+    link: "https://github.com/doruphin/fretnot",
+    icon: "images/fretnot.ico",
+    bg: "bg-[url(images/fretnot_bg.png)]",
+    title: "FretNot",
+    description:
+      "FretNot was a project my team and I created for Stormhacks 2025, a 24 hour hackathon. It was an attachment on to your guitar that would use lasers to display the proper frets and strings of certain chords, tuned for Creep by Radiohead. We ended up winning the IEEE award for engineering, so I'm pretty proud of this one.",
+    technologies: ["C++", "Typescript", "React", "Tailwind"],
+  },
+  {
+    link: "https://github.com/TightGrapes/GMTK-2025",
+    icon: "images/execution.ico",
+    bg: "bg-[url(images/execution_bg.png)]",
     title: "Execution Order",
-    description: "make some stuff yup",
-    embed: (
-      // <iframe
-      //   frameBorder="0"
-      //   src="https://itch.io/embed-upload/14524368?color=000000"
-      //   allowFullScreen={true}
-      //   width="960"
-      //   height="640"
-      // >
-      //   <a href="https://andrewyx.itch.io/execution-order">
-      //     Play Execution Order on itch.io
-      //   </a>
-      // </iframe>
-      <></>
-    ),
-    personal: "rly like this one",
-    technologies: ["bananan", "gaga"],
+    description:
+      "Execution Order was a project created for GMTK 2025, the largest game jam in Itch.io history. We created a puzzle game in under 72 hours, and I mainly worked on implementing the visuals and obstacles of the game. We placed in the top 5% amongst 37,000 participants, which is pretty impressive conidering there were full on game companies in the competition.",
+    technologies: ["C#", "Unity"],
   },
   {
-    date: "setp 31",
-    icon: "images/favicon.ico",
-    title: "This Website",
-    description: "masff yup",
-
-    embed: <></>,
-    personal: "rly like this one",
-    technologies: ["bananan"],
-  },
-  {
-    date: "setp 31",
-    icon: "images/favicon.ico",
+    link: "https://github.com/doruphin/bublstore",
+    icon: "images/bublstore.ico",
+    bg: "bg-[url(images/bublstore_bg.png)]",
     title: "bublstore",
-    description: "masff yup",
-
-    embed: <></>,
-    personal: "rly like this one",
-    technologies: ["bananan"],
+    description:
+      "bublstore was the first personal project I created just to learn the basics of web development and more specifically, the backend element of it. It was created using React + Tailwind, and featured an AI chatbot using a local Ollama LLM. Please do not enter in your credit card information though, as I'm pretty sure I stored it in plain text :).",
+    technologies: ["Python", "JavaScript", "Django", "Tailwind"],
   },
   {
-    date: "setp 31",
-    icon: "images/favicon.ico",
-    title: "SCiPNet",
-    description: "masff yup",
-
-    embed: <></>,
-    personal: "rly like this one",
-    technologies: ["bananan"],
+    link: "https://github.com/TightGrapes/Pikspace",
+    icon: "images/pikspace.ico",
+    bg: "bg-[url(images/pikspace_bg.png)]",
+    title: "Pikspace",
+    description:
+      "Pikspace was a project created for nwHacks 2025, the premiere hackathon at UBC. It was intended to be a fully fledged DSLR simulator in VR, mainly used as practice for exotic locations. I worked on the VR interactions with the camera adapting the various options such as ISO and aperture speed.",
+    technologies: ["C#", "Unity"],
   },
   {
-    date: "setp 31",
-    icon: "images/favicon.ico",
+    link: "https://github.com/Andrewyx/Flicker",
+    icon: "images/flicker.ico",
+    bg: "bg-[url(images/flicker_bg.png)]",
     title: "Flicker",
-    description: "masff yup",
-
-    embed: <></>,
-    personal: "rly like this one",
-    technologies: ["bananan"],
+    description:
+      'Flicker was a game created for Dungeon Crawler Jam 2023, and was the first "coding" competition I created. I mainly worked on the art and implementation of the game. While the game isnt particularly "good" or even "playable", it holds a special place in my heart for being my entry point into my love of game development.',
+    technologies: ["C#", "Unity"],
   },
 ];
 
@@ -87,39 +69,70 @@ export function Projects() {
   const [activeProject, setActiveProject] = useState(projects[0]);
 
   return (
-    <div className="w-3/4 h-2/5 flex flex-col">
-      <div className="w-full h-full border-2 p-8 grid grid-cols-4">
-        <div className="col-span-3">
-          <p className="italic text-2xl text-middle">{activeProject.date}</p>
-          <div>{activeProject.title}</div>
-          <div className="text-3xl">{activeProject.description}</div>
-          {activeProject.embed}
-        </div>
-        <div>
-          {activeProject.technologies.map((tech) => (
-            <div>{tech}</div>
-          ))}
-        </div>
-      </div>
-
-      <div className="w-full mt-3 flex text-2xl space-x-3">
+    <div className="w-3/4 h-3/5 flex flex-col">
+      {/* tabs */}
+      <div className="w-full mt-3 flex text-2xl bg-secondary rounded-t-lg border-t-1 border-x-1">
         {projects.map((proj, ind) => {
           return (
             <div
-              className="flex border-r-2 border-l-2 p-2 w-full justify-center hover:bg-light/70 transition-all hover:border-white hover:text-black cursor-pointer text-sm "
+              className={clsx(
+                "flex border-r-1 pl-3 pr-1 w-full justify-start text-sm ",
+                ind === 0 && "rounded-tl-lg",
+                ind === projects.length - 1 &&
+                  proj == activeProject &&
+                  "border-r-0!",
+                proj == activeProject
+                  ? ""
+                  : "border-b-1 hover:bg-tertiary cursor-pointer",
+              )}
               onClick={() => setActiveProject(projects[ind])}
             >
-              <div className="flex space-x-1 items-center">
+              <div className="flex space-x-1 items-center ">
                 <img
                   src={proj.icon}
-                  className="w-6"
+                  className="w-5"
                   alt={`icon for ${proj.title}`}
                 />
-                <p>{proj.title}</p>
+                <p className="text-xl truncate">{proj.title}</p>
               </div>
             </div>
           );
         })}
+        <div className="mx-4 text-3xl mt-1">x</div>
+      </div>
+
+      {/* body */}
+      <div className="w-full h-full border-1 rounded-b-lg p-4 border-t-0 flex flex-col bg-secondary">
+        <div className="w-full h-full ">
+          <div
+            className={clsx(
+              "w-full h-full bg-cover rounded-lg border-1",
+              activeProject.bg,
+            )}
+          >
+            <div className="h-full w-1/2 p-4">
+              <div className="bg-quaterniary rounded-lg h-full p-4 border-1 flex flex-col">
+                <p className="text-xl italic text-gray-600">
+                  {activeProject.technologies.map((tech, ind) => (
+                    <span>
+                      {tech}
+                      {ind !== activeProject.technologies.length - 1 && ", "}
+                    </span>
+                  ))}
+                </p>
+
+                <p className="text-2xl">{activeProject.description}</p>
+
+                <a
+                  className="mt-auto text-xl italic text-link/70"
+                  href={activeProject.link}
+                >
+                  Check It Out!
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

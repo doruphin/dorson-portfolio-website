@@ -2,6 +2,8 @@ import { createRoot } from "react-dom/client";
 import "./styles.css";
 import { useEffect, type ReactNode } from "react";
 import { Projects } from "./projects";
+import { Canvas } from "@react-three/fiber";
+import { Contact } from "./contact";
 
 export function Setup() {
   const slogans = [
@@ -22,7 +24,7 @@ export const SnapSection: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   return (
-    <div className="snap-always snap-center bg-black">
+    <div className="snap-always snap-center bg-primary">
       <div className={`relative min-h-screen flex `}>
         <div className="container max-w-screen-xl mx-auto flex flex-col justify-center items-center text-4xl text-lighter p-8 ">
           {children}
@@ -37,23 +39,9 @@ createRoot(document.getElementById("root") as HTMLInputElement).render(
     {/* <div className="top-1/2 left-16 absolute">
       <DialogueBox dialogue={dialogue} />
     </div>
-
-    <Canvas className="bg-black fixed h-[100vh]">
-      <ambientLight intensity={3} />
-      <spotLight
-        position={[10, 10, 10]}
-        angle={0.15}
-        penumbra={1}
-        decay={0}
-        intensity={Math.PI}
-      />
-      <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
-      <BackgroundScene />
-    </Canvas> */}
-
+*/}
     <Setup />
-
-    <div className="snap-y snap-mandatory overflow-y-scroll h-screen ">
+    <div className="snap-y snap-mandatory overflow-y-scroll h-screen no-scrollbar">
       <SnapSection>
         <img
           src="/images/favicon.ico"
@@ -80,11 +68,14 @@ createRoot(document.getElementById("root") as HTMLInputElement).render(
         <ul>
           <li>youtube</li>
           <li>3d printing</li>
-          {/* <li>cosplay?</li> */}
+          <li>cosplay?</li>
         </ul>
       </SnapSection>
 
-      <SnapSection>Contact</SnapSection>
+      <SnapSection>
+        <Contact />
+      </SnapSection>
     </div>
+    */
   </>,
 );
