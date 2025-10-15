@@ -1,6 +1,4 @@
-import { useState, type ReactNode } from "react";
 import "./styles.css";
-import clsx from "clsx";
 
 export function Contact() {
   return (

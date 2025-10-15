@@ -2,7 +2,7 @@ import { createRoot } from "react-dom/client";
 import "./styles.css";
 import { useEffect, type ReactNode } from "react";
 import { Projects } from "./projects";
-import { Canvas } from "@react-three/fiber";
+// import { Canvas } from "@react-three/fiber";
 import { Contact } from "./contact";
 
 export function Setup() {

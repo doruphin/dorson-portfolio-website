@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useState } from "react";
 import "./styles.css";
 import clsx from "clsx";
 
