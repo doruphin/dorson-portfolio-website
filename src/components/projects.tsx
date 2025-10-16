@@ -21,7 +21,7 @@ const projects: Project[] = [
   {
     link: "https://github.com/doruphin/fretnot",
     icon: "images/fretnot.ico",
-    bg: "bg-img",
+    bg: "bg-[url(images/fretnot_bg.png)]",
     title: "FretNot",
     description:
       "FretNot was a project my team and I created for Stormhacks 2025, a 24 hour hackathon. It was an attachment on to your guitar that would use lasers to display the proper frets and strings of certain chords, tuned for Creep by Radiohead. We ended up winning the IEEE award for engineering, so I'm pretty proud of this one.",
@@ -106,7 +106,7 @@ export function Projects() {
         <div className="w-full h-full ">
           <div
             className={clsx(
-              "w-full h-full bg-cover rounded-lg border-1",
+              "w-full h-full bg-cover rounded-lg border-1 bg-[url(images/fretnot_bg.png)]",
               activeProject.bg,
             )}
           >
@@ -133,6 +133,8 @@ export function Projects() {
             </div>
           </div>
         </div>
+
+        <img src="images/execution_bg.png" />
       </div>
     </div>
   );
