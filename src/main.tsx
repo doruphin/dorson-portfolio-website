@@ -1,9 +1,10 @@
 import { createRoot } from "react-dom/client";
 import "./styles.css";
 import { useEffect, type ReactNode } from "react";
-import { Projects } from "./projects";
+import { Projects } from "./components/projects";
 // import { Canvas } from "@react-three/fiber";
-import { Contact } from "./contact";
+import { Contact } from "./components/contact";
+import { Overview } from "./components/overview";
 
 export function Setup() {
   const slogans = [
@@ -43,18 +44,7 @@ createRoot(document.getElementById("root") as HTMLInputElement).render(
     <Setup />
     <div className="snap-y snap-mandatory overflow-y-scroll h-screen no-scrollbar">
       <SnapSection>
-        <img
-          src="/images/favicon.ico"
-          className="w-32 border-2 rounded-full p-2 mb-8"
-        />
-        <div className="mb-8 bg-yellow-200 w-full flex justify-center text-black">
-          UNDER CONSTRUCTION
-        </div>
-        <div>introduction</div>
-        <img src="images/construction.gif" alt="lol" className="mb-8" />
-        <div className="w-2/3 h-1/2 border-2 rounded-2xl p-8">
-          <div>This is gonna be a really cool website, i promise</div>
-        </div>
+        <Overview />
       </SnapSection>
 
       <SnapSection>Work Experience</SnapSection>
