@@ -33,7 +33,7 @@ const projects: Project[] = [
     bg: "images/execution_bg.png",
     title: "Execution Order",
     description:
-      "Execution Order was a project created for GMTK 2025, the largest game jam in Itch.io history. We created a puzzle game in under 72 hours, and I mainly worked on implementing the visuals and obstacles of the game. We placed in the top 5% amongst 37,000 participants, which is pretty impressive conidering there were full on game companies in the competition.",
+      "Execution Order was a project created for GMTK 2025, the largest game jam in Itch.io history. We created a puzzle game in under 72 hours, and I mainly worked on implementing the visuals and obstacles of the game. We placed in the top 5% amongst 37,000 participants, which is pretty impressive considering there were full on game companies in the competition.",
     technologies: ["C#", "Unity"],
   },
   {

@@ -47,18 +47,21 @@ createRoot(document.getElementById("root") as HTMLInputElement).render(
         <Overview />
       </SnapSection>
 
-      <SnapSection>Work Experience</SnapSection>
+      <SnapSection>Work Experience some type of timeline type beat</SnapSection>
 
       <SnapSection>
         <Projects />
       </SnapSection>
 
       <SnapSection>
-        <div>Creativity</div>
+        <div>
+          Creativity individual windows for each one with my labeling and
+          desctiptions all over it
+        </div>
         <ul>
-          <li>youtube</li>
-          <li>3d printing</li>
-          <li>cosplay?</li>
+          <li>youtube front page</li>
+          <li>3d printing/ modeeling blender donut</li>
+          <li>cosplay? </li>
         </ul>
       </SnapSection>
 
