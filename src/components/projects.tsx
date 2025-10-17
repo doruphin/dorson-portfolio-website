@@ -100,7 +100,6 @@ export function Projects() {
         })}
         <div className="mx-4 text-3xl mt-1">x</div>
       </div>
-
       {/* body */}
       <div className="w-full h-full border-1 rounded-b-lg p-4 border-t-0 flex flex-col bg-secondary">
         <div className="w-full h-full ">
@@ -131,6 +130,7 @@ export function Projects() {
             </div>
           </div>
         </div>
+        <p className="text-lg">personal_projects.exe</p>
       </div>
     </div>
   );

@@ -5,6 +5,8 @@ import { Projects } from "./components/projects";
 // import { Canvas } from "@react-three/fiber";
 import { Contact } from "./components/contact";
 import { Overview } from "./components/overview";
+import { Work } from "./components/work";
+import clsx from "clsx";
 
 export function Setup() {
   const slogans = [
@@ -21,13 +23,19 @@ export function Setup() {
   return <></>;
 }
 
-export const SnapSection: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+export const SnapSection: React.FC<{
+  children: ReactNode;
+  className?: string | undefined;
+}> = ({ children, className }) => {
   return (
     <div className="snap-always snap-center bg-primary">
       <div className={`relative min-h-screen flex `}>
-        <div className="container max-w-screen-xl mx-auto flex flex-col justify-center items-center text-4xl text-lighter p-8 ">
+        <div
+          className={clsx(
+            className,
+            "container max-w-screen-xl mx-auto flex flex-col justify-center items-center text-4xl text-lighter p-8 ",
+          )}
+        >
           {children}
         </div>
       </div>
@@ -47,7 +55,9 @@ createRoot(document.getElementById("root") as HTMLInputElement).render(
         <Overview />
       </SnapSection>
 
-      <SnapSection>Work Experience some type of timeline type beat</SnapSection>
+      <SnapSection>
+        <Work />
+      </SnapSection>
 
       <SnapSection>
         <Projects />
