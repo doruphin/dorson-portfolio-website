@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Jersey+15&family=Pixelify+Sans:wght@400..700&display=swap");
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 @import "tailwindcss";
 
 /* https://coolors.co/palette/0d1b2a-1b263b-415a77-778da9-e0e1dd */
@@ -13,16 +13,20 @@ body {
 }
 
 @theme {
-  --color-primary: #c4dfdf;
-  --color-secondary: #d2e9e9;
-  --color-tertiary: #e3f4f4;
-  --color-quaterniary: #f8f6f4;
-  --color-dark: #374259;
-  --color-link: #0000ee;
+  --color-secondary: #dfe9f5;
 }
 
 * {
-  font-family: "Jersey 15", sans-serif;
+  font-family: "Funnel Sans", sans-serif;
+  font-size: 1.25rem;
+  -webkit-user-select: none;
+  user-select: none;
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 @keyframes blob {

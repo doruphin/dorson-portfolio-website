@@ -1,18 +1,63 @@
+import { type ReactNode } from "react";
 import { useWindowStore } from "./windows";
 
-export function Desktop() {
+interface DesktopIcon {
+  title: string;
+  iconPath: string;
+  content: ReactNode;
+}
+
+const projectIcons: DesktopIcon[] = [
+  {
+    title: "FretNot",
+    iconPath: "images/folder.ico",
+    content: "sigma",
+  },
+  {
+    title: "FretNot",
+    iconPath: "images/folder.ico",
+    content: "sigma",
+  },
+];
+
+const desktopFolders: DesktopIcon[] = [
+  {
+    title: "Projects",
+    iconPath: "images/folder.ico",
+    content: (
+      <div className="p-2">
+        <GridLayout icons={projectIcons} />
+      </div>
+    ),
+  },
+  {
+    title: "Deez",
+    iconPath: "images/folder.ico",
+    content: <GridLayout icons={projectIcons} />,
+  },
+];
+
+function GridLayout({ icons }: { icons: DesktopIcon[] }) {
   const addWindows = useWindowStore((state) => state.addWindow);
 
+  return icons.map((icon) => (
+    <div className="col-start-1 flex aspect-square w-20 h-20 flex-col justify-center items-center hover:cursor-pointer">
+      <img
+        src={icon.iconPath}
+        className="w-12"
+        onClick={() => {
+          addWindows(icon.title, icon.iconPath, icon.content);
+        }}
+      />
+      <h2 className="text-[1rem]!">{icon.title}</h2>
+    </div>
+  ));
+}
+
+export function Desktop() {
   return (
-    <div className="w-full h-screen bg-red-600 grid grid-rows-15 grid-cols-15 p-8">
-      <div className="col-start-1 row-start-1 bg-amber-500 flex aspect-square w-24">
-        <img
-          src="images/fretnot.ico"
-          onClick={() => {
-            addWindows("buhnana");
-          }}
-        />
-      </div>
+    <div className="w-full h-screen bg-[url(images/bliss.jpg)] bg-cover grid grid-rows-6 grid-cols-15 p-4 ">
+      <GridLayout icons={desktopFolders} />
     </div>
   );
 }
