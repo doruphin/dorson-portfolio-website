@@ -13,6 +13,7 @@ interface DesktopWindowInterface {
   iconPath: string;
   active: boolean;
   content: ReactNode;
+  startPos: { x: number; y: number };
 }
 
 interface WindowState {
@@ -23,6 +24,7 @@ interface WindowState {
     content: ReactNode,
     width?: number,
     height?: number,
+    startPos?: { x: number; y: number },
   ) => void;
   deleteWindow: (id: number) => void;
   setActiveWindow: (id: number) => void;
@@ -59,12 +61,12 @@ export const useWindowStore = create<WindowState>((set) => ({
     content: ReactNode,
     width: number = 600,
     height: number = 380,
+    startPos?: { x: number; y: number },
   ) =>
     set((state) => {
       const existingWindow = state.windows.find(
         (window) => title === window.title,
       );
-
       if (existingWindow) {
         return {
           windows: state.windows.map((window) => {
@@ -86,6 +88,10 @@ export const useWindowStore = create<WindowState>((set) => ({
         iconPath,
         active: false,
         content,
+        startPos: startPos || {
+          x: window.innerWidth / 2 - width / 2 + state.windows.length * 25,
+          y: window.innerHeight / 2 - height / 2 + state.windows.length * 25,
+        },
       };
 
       return {
@@ -111,8 +117,8 @@ export function Window({ data }: { data: DesktopWindowInterface }) {
   const deleteWindow = useWindowStore((state) => state.deleteWindow);
 
   const [initialPos] = useState(() => ({
-    x: window.innerWidth / 2.2,
-    y: 120,
+    x: data.startPos.x,
+    y: data.startPos.y,
   }));
 
   const [x, y] = useDraggable(el, {
@@ -163,11 +169,9 @@ export function Window({ data }: { data: DesktopWindowInterface }) {
           </div>
         </div>
         <div className="h-4 mx-1.5 mt-3 flex justify-between">
-          <div className="bg-secondary w-20 rounded-full inset-shadow-sm">
-            {" "}
-          </div>
-          <div className="bg-secondary w-full mx-3 rounded-2xs inset-shadow-sm"></div>
-          <div className="bg-secondary w-64 rounded-2xs inset-shadow-sm"></div>
+          <div className="bg-secondary w-20 rounded-full inset-shadow-sm" />
+          <div className="bg-secondary w-full mx-3 rounded-2xs inset-shadow-sm" />
+          <div className="bg-secondary w-64 rounded-2xs inset-shadow-sm" />
         </div>
       </div>
       <div className="m-1.5 border-1 border-black/30 h-full bg-white">
