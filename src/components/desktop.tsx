@@ -26,15 +26,15 @@ const folders: DesktopFolder[] = [
   },
   {
     title: "Hobbies",
-    icons: undefined,
+    icons: projectIcons,
   },
   {
     title: "Experience",
-    icons: undefined,
+    icons: projectIcons,
   },
   {
     title: "Education",
-    icons: undefined,
+    icons: projectIcons,
   },
 ];
 
@@ -145,7 +145,13 @@ export function Desktop() {
           say about them, some of them even have demos!
         </p>
         <p className="text-black!">
-          Lastly, no matter who you are, remember to have a good day!
+          By the way, this website is fully open source and can be found{" "}
+          <a
+            href="https://github.com/doruphin/dorson-portfolio-website"
+            className="text-blue-700!"
+          >
+            here.
+          </a>
         </p>
       </div>,
       400,
