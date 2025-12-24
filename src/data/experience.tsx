@@ -40,7 +40,7 @@ export const experienceIcons: DesktopIcon[] = experiences.map((experience) => ({
         <h2 className="text-gray-700! italic!">{experience.subtitle}</h2>
         <p className="text-black! text-[1rem]">{experience.description}</p>
       </div>
-      <div className="absolute w-1/4 h-[321px] left-1/2 bg-linear-to-r from-white to-white/0"></div>
+      <div className="absolute w-1/4 h-[349px] left-1/2 bg-linear-to-r from-white to-white/0"></div>
       <div
         className="col-span-5 h-full text-center flex flex-col justify-center bg-position-[center_right_-4rem] bg-size-[600px] space-y-3 items-center"
         style={{ backgroundImage: `url(${experience.bg})` }}

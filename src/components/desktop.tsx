@@ -44,6 +44,7 @@ const desktopFolders: DesktopIcon[] = [
       <div className={"grid grid-cols-7 py-2 items-baseline"}>
         <GridLayout
           icons={folder.icons}
+          folder={false}
           iconTextClassName="text-black!"
           width={folder.title === "Hobbies" ? 720 : undefined}
           height={folder.title === "Hobbies" ? 600 : undefined}
@@ -61,6 +62,7 @@ const desktopFolders: DesktopIcon[] = [
 
 function GridLayout({
   icons,
+  folder,
   className,
   iconTextClassName,
   width,
@@ -68,6 +70,7 @@ function GridLayout({
   startPos,
 }: {
   icons: DesktopIcon[];
+  folder: boolean;
   className?: string;
   iconTextClassName?: string;
   width?: number;
@@ -84,6 +87,7 @@ function GridLayout({
           icon.title,
           icon.iconPath,
           icon.content,
+          folder,
           width,
           height,
           startPos,
@@ -133,6 +137,7 @@ export function Desktop() {
           </a>
         </p>
       </div>,
+      false,
       400,
       550,
       { x: window.innerWidth / 2 - 430, y: window.innerHeight / 2 - 270 },
@@ -142,6 +147,7 @@ export function Desktop() {
       "Projects",
       "images/folder.ico",
       desktopFolders[0].content,
+      true,
       600,
       220,
       { x: window.innerWidth / 2, y: window.innerHeight / 2 - 270 },
@@ -151,8 +157,19 @@ export function Desktop() {
       "Contact Me",
       "images/contact.ico",
       desktopFolders[desktopFolders.length - 1].content,
+      false,
       600,
       300,
+      { x: window.innerWidth / 2, y: window.innerHeight / 2 - 20 },
+    );
+
+    addWindows(
+      "Contadsadct Me",
+      "images/contact.ico",
+      educationIcons[0].content,
+      false,
+      600,
+      380,
       { x: window.innerWidth / 2, y: window.innerHeight / 2 - 20 },
     );
 
@@ -177,7 +194,7 @@ export function Desktop() {
 
   return (
     <div className="w-full h-screen z-1 grid grid-rows-6 grid-cols-15 p-4 absolute">
-      <GridLayout icons={desktopFolders} className="col-start-1" />
+      <GridLayout icons={desktopFolders} folder className="col-start-1" />
     </div>
   );
 }

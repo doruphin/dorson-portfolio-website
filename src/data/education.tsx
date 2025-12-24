@@ -11,7 +11,7 @@ export const educationIcons: DesktopIcon[] = [
             University of British Columbia
           </h1>
           <h2 className="text-gray-700! italic!">
-            Expected Graduation: May 2028 | GPA: 3.95/4.33
+            Expected Grad: May 2028 | GPA: 3.95/4.33
           </h2>
           <p className="text-black! text-[1.15rem]">
             I am currently pursuing a Bachelor of Science with a major in
@@ -21,7 +21,8 @@ export const educationIcons: DesktopIcon[] = [
             club and UBC Subbots.
           </p>
         </div>
-        <div className="col-span-5 h-full text-center flex flex-col justify-center bg-position-[center_right_-8rem] bg-size-[600px] space-y-3 bg-[url(/images/ubc_bg.jpg)]"></div>
+        <div className="absolute w-1/4 h-[349px] left-65/120 bg-linear-to-r from-white via-20% via-white to-white/0"></div>
+        <div className="col-span-5 h-full text-center flex flex-col justify-center bg-position-[center_right_-8rem] bg-size-[700px] space-y-3 bg-[url(/images/ubc_bg.jpg)]"></div>
       </div>
     ),
   },

@@ -14,6 +14,7 @@ interface DesktopWindowInterface {
   active: boolean;
   content: ReactNode;
   startPos: { x: number; y: number };
+  folder: boolean;
 }
 
 interface WindowState {
@@ -22,6 +23,7 @@ interface WindowState {
     title: string,
     iconPath: string,
     content: ReactNode,
+    folder: boolean,
     width?: number,
     height?: number,
     startPos?: { x: number; y: number },
@@ -59,6 +61,7 @@ export const useWindowStore = create<WindowState>((set) => ({
     title: string,
     iconPath: string,
     content: ReactNode,
+    folder: boolean,
     width: number = 600,
     height: number = 380,
     startPos?: { x: number; y: number },
@@ -92,6 +95,7 @@ export const useWindowStore = create<WindowState>((set) => ({
           x: window.innerWidth / 2 - width / 2 + state.windows.length * 25,
           y: window.innerHeight / 2 - height / 2 + state.windows.length * 25,
         },
+        folder: folder,
       };
 
       return {
@@ -168,11 +172,13 @@ export function Window({ data }: { data: DesktopWindowInterface }) {
             <i className="bi bi-x leading-none" />
           </div>
         </div>
-        <div className="h-4 mx-1.5 mt-3 flex justify-between">
-          <div className="bg-secondary w-20 rounded-full inset-shadow-sm" />
-          <div className="bg-secondary w-full mx-3 rounded-2xs inset-shadow-sm" />
-          <div className="bg-secondary w-64 rounded-2xs inset-shadow-sm" />
-        </div>
+        {data.folder && (
+          <div className="h-4 mx-1.5 mt-3 flex justify-between">
+            <div className="bg-secondary w-20 rounded-full inset-shadow-sm" />
+            <div className="bg-secondary w-full mx-3 rounded-2xs inset-shadow-sm" />
+            <div className="bg-secondary w-64 rounded-2xs inset-shadow-sm" />
+          </div>
+        )}
       </div>
       <div className="m-1.5 border-1 border-black/30 h-full bg-white">
         {data.content}

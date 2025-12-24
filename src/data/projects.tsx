@@ -111,6 +111,7 @@ function ProjectWindow({ project }: { project: Project }) {
                 project.title.toLowerCase() + ".exe",
                 project.icon,
                 project.executable,
+                false,
                 980,
                 700,
               )
