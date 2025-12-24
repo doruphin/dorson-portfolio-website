@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import type { DesktopIcon } from "../components/desktop";
+import { useWindowStore } from "../components/windows";
 
 export type Project = {
   link: string;
@@ -64,12 +66,67 @@ export const projects: Project[] = [
     bg: "images/flicker_bg.png",
     title: "Flicker",
     description:
-      'Flicker was a game created for Dungeon Crawler Jam 2023, and was the first "coding" competition I created. I mainly worked on the art and implementation of the game. While the game isnt particularly "good" or even "playable", it holds a special place in my heart for being my entry point into my love of game development.',
+      'Flicker was a game created for Dungeon Crawler Jam 2023, and was the first "coding" competition I competed in. I mainly worked on the art and implementation of the game. While the game isnt particularly "good" or even "playable", it holds a special place in my heart for being my entry point into my love of game development.',
     technologies: ["C#", "Unity"],
     executable: (
-      <iframe width="640" height="380">
+      <iframe
+        src="https://itch.io/embed-upload/7667393?color=000000"
+        width="960"
+        height="640"
+      >
         <a href="https://andrewyx.itch.io/flicker">Play Flicker on itch.io</a>
       </iframe>
     ),
   },
 ];
+
+function ProjectWindow({ project }: { project: Project }) {
+  const addWindows = useWindowStore((state) => state.addWindow);
+
+  return (
+    <div className="grid w-full h-full grid-cols-12">
+      <div className="col-span-8 h-full p-3 py-2">
+        <h1 className="text-black! text-3xl">{project.title}</h1>
+        <h2 className="text-gray-700! italic!">
+          {project.technologies.join(", ")}
+        </h2>
+        <p className="text-black! text-[1.15rem]">{project.description}</p>
+      </div>
+      <div
+        className="col-span-4 h-full text-center flex flex-col justify-center bg-position-[center_right_-4rem] bg-size-[600px] space-y-3"
+        style={{ backgroundImage: `url(${project.bg})` }}
+      >
+        <a
+          href={project.link}
+          target="_blank"
+          className="rounded-full bg-black/40 hover:cursor-pointer hover:bg-black/70 items-center p-2"
+        >
+          <i className="bi bi-box-arrow-up-right mr-2" />
+          <span>View the Project!</span>
+        </a>
+        {project.executable && (
+          <div
+            onClick={() =>
+              addWindows(
+                project.title.toLowerCase() + ".exe",
+                project.icon,
+                project.executable,
+                980,
+                700,
+              )
+            }
+            className="rounded-full bg-black/40 hover:cursor-pointer hover:bg-black/70 items-center p-2"
+          >
+            <i className="bi bi-play-fill" /> <span>Play a demo!</span>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export const projectIcons: DesktopIcon[] = projects.map((proj) => ({
+  title: proj.title,
+  iconPath: proj.icon,
+  content: <ProjectWindow project={proj} />,
+}));
