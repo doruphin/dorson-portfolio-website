@@ -163,15 +163,15 @@ export function Desktop() {
       { x: window.innerWidth / 2, y: window.innerHeight / 2 - 20 },
     );
 
-    addWindows(
-      "Contadsadct Me",
-      "images/contact.ico",
-      educationIcons[0].content,
-      false,
-      600,
-      380,
-      { x: window.innerWidth / 2, y: window.innerHeight / 2 - 20 },
-    );
+    // addWindows(
+    //   "Contadsadct Me",
+    //   "images/contact.ico",
+    //   educationIcons[0].content,
+    //   false,
+    //   600,
+    //   380,
+    //   { x: window.innerWidth / 2, y: window.innerHeight / 2 - 20 },
+    // );
 
     // addWindows(
     //   "UNDERCONSTRUCTION",
