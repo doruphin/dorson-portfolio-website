@@ -14,10 +14,11 @@ function LinkLine({
     <div className="flex space-x-3">
       <a href={link}>
         <i
-          className={clsx("bi hover:text-black/70! text-black! text-xl", icon)}
-        />
+          className={clsx("bi hover:text-black/70! text-black! text-xl pr-3", icon)}
+        />      
+        <span className="cursor-pointer text-[1rem]/6.5 underline text-blue-500!">{tag}</span>
       </a>
-      <span className="cursor-pointer text-[1rem]/6.5 underline text-blue-500!">{tag}</span>
+
     </div>
   );
 }
