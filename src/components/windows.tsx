@@ -164,6 +164,9 @@ export function Window({ data }: { data: DesktopWindowInterface }) {
       }}
     >
       <div ref={handle} className="hover:cursor-move">
+        <h1 className={`absolute pl-2 text-sm text-black! ${data.folder ? 'pt-1' : 'pt-0.5'}`}>
+           {data.title}
+        </h1>
         <div className="flex justify-end mx-1.5">
           <div
             onClick={() => deleteWindow(data.id)}

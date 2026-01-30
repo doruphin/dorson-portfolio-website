@@ -17,7 +17,7 @@ function LinkLine({
           className={clsx("bi hover:text-black/70! text-black! text-xl", icon)}
         />
       </a>
-      <span className="text-black! select-text! text-[1rem]/6.5">{tag}</span>
+      <span className="cursor-pointer text-[1rem]/6.5 underline text-blue-500!">{tag}</span>
     </div>
   );
 }
@@ -54,7 +54,7 @@ export function Contact() {
             <LinkLine
               icon="bi-file-earmark-pdf-fill"
               link="/documents/TangDorsonResume.pdf"
-              tag="Resume as of 2025-12-23"
+              tag="Resume as of 2026-01-30"
             />
           </div>
         </div>

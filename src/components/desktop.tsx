@@ -131,7 +131,7 @@ export function Desktop() {
           By the way, this website is fully open source and can be found{" "}
           <a
             href="https://github.com/doruphin/dorson-portfolio-website"
-            className="text-blue-700!"
+            className="text-blue-500!"
           >
             here.
           </a>
