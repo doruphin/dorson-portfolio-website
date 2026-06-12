@@ -28,6 +28,15 @@ export const experiences: Experience[] = [
     bg: "images/subbots_bg.webp",
     link: "https://github.com/ubc-subbots/steelhead",
   },
+  {
+    icon: "images/shift.ico",
+    title: "Shift",
+    subtitle: "C++ Developer",
+    description:
+      "My second internship was at Shift browser, under Redbrick. I worked as a C++ chromium developer.",
+    bg: "images/shift_bg.webp",
+    link: "https://www.rdbrck.com/shift",
+  },
 ];
 
 export const experienceIcons: DesktopIcon[] = experiences.map((experience) => ({

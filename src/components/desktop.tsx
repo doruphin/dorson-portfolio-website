@@ -79,9 +79,10 @@ function GridLayout({
 }) {
   const addWindows = useWindowStore((state) => state.addWindow);
 
-  return icons.map((icon) => (
+  return icons.map((icon, index) => (
     <div
-      className={`flex aspect-square w-20 h-20 flex-col justify-center items-center hover:cursor-pointer ${className}`}
+      key={icon.title || index}
+      className={`flex aspect-square w-20 h-20 flex-col justify-center items-center hover:cursor-pointer ${className ? className : ""}`}
       onClick={() => {
         addWindows(
           icon.title,
@@ -90,12 +91,12 @@ function GridLayout({
           folder,
           width,
           height,
-          startPos,
+          startPos
         );
       }}
     >
       <img src={icon.iconPath} className="w-12" />
-      <h2 className={`text-[0.9rem]! ${iconTextClassName}`}>{icon.title}</h2>
+      <h2 className={`text-[0.9rem]! ${iconTextClassName ? iconTextClassName : ""}`}>{icon.title}</h2>
     </div>
   ));
 }
@@ -164,16 +165,6 @@ export function Desktop() {
     );
 
     // addWindows(
-    //   "Contadsadct Me",
-    //   "images/contact.ico",
-    //   educationIcons[0].content,
-    //   false,
-    //   600,
-    //   380,
-    //   { x: window.innerWidth / 2, y: window.innerHeight / 2 - 20 },
-    // );
-
-    // addWindows(
     //   "UNDERCONSTRUCTION",
     //   "images/construction.gif",
     //   <div>
@@ -183,6 +174,7 @@ export function Desktop() {
     //       may not accurately represent a finished product
     //     </h1>
     //   </div>,
+    //   false,
     //   200,
     //   450,
     //   {
@@ -193,8 +185,8 @@ export function Desktop() {
   }, []);
 
   return (
-    <div className="w-full h-screen z-1 grid grid-rows-6 grid-cols-15 p-4 absolute">
-      <GridLayout icons={desktopFolders} folder className="col-start-1" />
-    </div>
-  );
+  <div className="w-full h-screen z-1 flex flex-col flex-wrap content-start gap-8 p-4 absolute">
+    <GridLayout icons={desktopFolders} folder />
+  </div>
+);
 }

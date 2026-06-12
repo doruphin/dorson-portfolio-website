@@ -13,7 +13,7 @@ const BlenderScene = () => {
     setIndex((prev) => (prev - 1 + MODELS.length) % MODELS.length);
   };
 
-  const MODELS = [{ path: "/models/violence mask.glb" }];
+  const MODELS = [{ path: "/models/violence mask.glb" }, { path: "/models/ranger mask.glb" }];
 
   function Model({ path }: { path: string }) {
     const { scene } = useGLTF(path);
