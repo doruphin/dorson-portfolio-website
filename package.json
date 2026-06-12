@@ -1,13 +1,13 @@
 {
   "name": "dorson-portfolio-website",
-  "homepage": "www.dorsontang.xyz",
+  "homepage": "www.dorsontang.com",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "add-domain": "echo www.dorsontang.xyz > dist/CNAME",
+    "add-domain": "echo www.dorsontang.com > dist/CNAME",
     "lint": "eslint .",
     "preview": "vite preview",
     "deploy": "npm run add-domain && gh-pages -d dist"
