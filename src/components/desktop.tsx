@@ -105,64 +105,64 @@ export function Desktop() {
   const addWindows = useWindowStore((state) => state.addWindow);
 
   useEffect(() => {
-    addWindows(
-      "Welcome!",
-      "images/favicon.ico",
-      <div className="p-3 space-y-3">
-        <h1 className="text-black! text-3xl">Hello there!</h1>
-        <p className="text-black!">
-          My name is Dorson Tang, and I'd like to formally extend to you an
-          invitation to my website!
-        </p>
-        <p className="text-black!">
-          If you are viewing this, you are most likely a recruiter looking at my
-          resume. No biases, but I think you should 100% hire me :{")"}.
-        </p>
-        <p className="text-black!">
-          As you can see, this isn't your standard portfolio website. Treat it
-          like a directory representing my accomplishments, projects, and
-          generally who I am as a person.
-        </p>
-        <p className="text-black!">
-          On the right are some open folders of my technical projects and
-          contact information. Feel free to click into the projects and read
-          what I have to say about them, some of them even have demos!
-        </p>
-        <p className="text-black!">
-          By the way, this website is fully open source and can be found{" "}
-          <a
-            href="https://github.com/doruphin/dorson-portfolio-website"
-            className="text-blue-500!"
-          >
-            here.
-          </a>
-        </p>
-      </div>,
-      false,
-      400,
-      550,
-      { x: window.innerWidth / 2 - 430, y: window.innerHeight / 2 - 270 },
-    );
+    // addWindows(
+    //   "Welcome!",
+    //   "images/favicon.ico",
+    //   <div className="p-3 space-y-3">
+    //     <h1 className="text-black! text-3xl">Hello there!</h1>
+    //     <p className="text-black!">
+    //       My name is Dorson Tang, and I'd like to formally extend to you an
+    //       invitation to my website!
+    //     </p>
+    //     <p className="text-black!">
+    //       If you are viewing this, you are most likely a recruiter looking at my
+    //       resume. No biases, but I think you should 100% hire me :{")"}.
+    //     </p>
+    //     <p className="text-black!">
+    //       As you can see, this isn't your standard portfolio website. Treat it
+    //       like a directory representing my accomplishments, projects, and
+    //       generally who I am as a person.
+    //     </p>
+    //     <p className="text-black!">
+    //       On the right are some open folders of my technical projects and
+    //       contact information. Feel free to click into the projects and read
+    //       what I have to say about them, some of them even have demos!
+    //     </p>
+    //     <p className="text-black!">
+    //       By the way, this website is fully open source and can be found{" "}
+    //       <a
+    //         href="https://github.com/doruphin/dorson-portfolio-website"
+    //         className="text-blue-500!"
+    //       >
+    //         here.
+    //       </a>
+    //     </p>
+    //   </div>,
+    //   false,
+    //   400,
+    //   550,
+    //   { x: window.innerWidth / 2 - 430, y: window.innerHeight / 2 - 270 },
+    // );
 
-    addWindows(
-      "Projects",
-      "images/folder.ico",
-      desktopFolders[0].content,
-      true,
-      600,
-      220,
-      { x: window.innerWidth / 2, y: window.innerHeight / 2 - 270 },
-    );
+    // addWindows(
+    //   "Projects",
+    //   "images/folder.ico",
+    //   desktopFolders[0].content,
+    //   true,
+    //   600,
+    //   220,
+    //   { x: window.innerWidth / 2, y: window.innerHeight / 2 - 270 },
+    // );
 
-    addWindows(
-      "Contact Me",
-      "images/contact.ico",
-      desktopFolders[desktopFolders.length - 1].content,
-      false,
-      600,
-      300,
-      { x: window.innerWidth / 2, y: window.innerHeight / 2 - 20 },
-    );
+    // addWindows(
+    //   "Contact Me",
+    //   "images/contact.ico",
+    //   desktopFolders[desktopFolders.length - 1].content,
+    //   false,
+    //   600,
+    //   300,
+    //   { x: window.innerWidth / 2, y: window.innerHeight / 2 - 20 },
+    // );
 
     // addWindows(
     //   "UNDERCONSTRUCTION",

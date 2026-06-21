@@ -1,4 +1,3 @@
-import "../styles.css";
 import { useRef, useState, type ReactNode } from "react";
 import { create } from "zustand";
 import { useDraggable } from "@reactuses/core";
