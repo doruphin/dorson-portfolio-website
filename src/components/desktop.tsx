@@ -1,4 +1,4 @@
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useWindowStore } from "./windows";
 import { projectIcons } from "../data/projects";
 import { Contact } from "./contact";
@@ -15,6 +15,36 @@ export interface DesktopIcon {
 interface DesktopFolder {
   title: string;
   icons: DesktopIcon[];
+}
+
+const API = "https://api.dorsontang.com";
+
+interface CountResponse {
+  count: number;
+}
+
+export default function VisitCounter() {
+  const [count, setCount] = useState<number | null>(null);
+  const [error, setError] = useState(false);
+  const hasRun = useRef(false);
+
+  useEffect(() => {
+    if (hasRun.current) return; // prevent StrictMode double-increment
+    hasRun.current = true;
+
+    (async () => {
+      try {
+        const res = await fetch(`${API}/increment`, { method: "POST" });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data: CountResponse = await res.json();
+        setCount(data.count);
+      } catch {
+        setError(true);
+      }
+    })();
+  }, []);
+
+  return <p className="text-black!">You're visitor #{error ? "unavailable" : count ?? "…"}</p>;
 }
 
 const folders: DesktopFolder[] = [
@@ -164,24 +194,25 @@ export function Desktop() {
     //   { x: window.innerWidth / 2, y: window.innerHeight / 2 - 20 },
     // );
 
-    // addWindows(
-    //   "UNDERCONSTRUCTION",
-    //   "images/construction.gif",
-    //   <div>
-    //     <img src="images/construction.gif" />
-    //     <h1 className="text-black! bg-amber-300">
-    //       If you are seeing this, this website is going through some changes and
-    //       may not accurately represent a finished product
-    //     </h1>
-    //   </div>,
-    //   false,
-    //   200,
-    //   450,
-    //   {
-    //     x: window.innerWidth / 2 - 200 / 2,
-    //     y: window.innerHeight / 2 - 450 / 2,
-    //   },
-    // );
+    addWindows(
+      "UNDERCONSTRUCTION",
+      "images/construction.gif",
+      <div>
+        <img src="images/construction.gif" />
+        <h1 className="text-black! bg-amber-300">
+          If you are seeing this, this website is going through some changes and
+          may not accurately represent a finished product
+        </h1>
+        <VisitCounter/>
+      </div>,
+      false,
+      200,
+      450,
+      {
+        x: window.innerWidth / 2 - 200 / 2,
+        y: window.innerHeight / 2 - 450 / 2,
+      },
+    );
   }, []);
 
   return (

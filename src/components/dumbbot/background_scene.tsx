@@ -72,18 +72,6 @@ export function BackgroundScene() {
 }
 
 
-// const API = "https://api.yourdomain.com";
-
-// async function getCount() {
-//   const res = await fetch(`${API}/count`);
-//   document.getElementById("count").textContent = (await res.json()).count;
-// }
-// async function increment() {
-//   const res = await fetch(`${API}/increment`, { method: "POST" });
-//   document.getElementById("count").textContent = (await res.json()).count;
-// }
-
-
 // function getMousePos(e: MouseEvent) {
 //   return { x: e.clientX, y: e.clientY };
 // }
