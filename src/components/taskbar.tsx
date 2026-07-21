@@ -5,10 +5,10 @@ export function Taskbar() {
   const windows = useWindowStore((state) => state.windows);
   const setActiveWindows = useWindowStore((state) => state.setActiveWindow);
   const theme = useWindowStore((state) => state.theme);
-  const setTheme = useWindowStore((state) => state.setTheme);
 
   const isVista = theme === 'vista';
   const isXp = theme === 'xp';
+  const is98 = theme === 'win98';
 
   return (
     <div 
@@ -47,7 +47,7 @@ export function Taskbar() {
             }`}
           >
             <img src={getThemeIcon(window.iconPath, theme)} className={`object-contain ${isVista ? "w-11 h-9" : "w-5 h-5 mr-1.5"}`} />
-            <p className={`truncate text-sm ${isVista ? "[paint-order:stroke_fill] [-webkit-text-stroke:2px_black]" : "font-sans font-bold"}`}>
+            <p className={`truncate text-sm ${isVista ? "[paint-order:stroke_fill] [-webkit-text-stroke:2px_black]" : "font-sans font-bold"} ${is98 && "text-black!"}`}>
               {window.title}
             </p>
           </li>
@@ -59,7 +59,7 @@ export function Taskbar() {
         isXp ? "bg-linear-to-b from-[#0f86d8] to-[#0c59b3] border-l border-[#1366c4] px-3 h-full shadow-[inset_1px_0_2px_rgba(255,255,255,0.2)] -mr-2 text-white" :
         "border-2 border-t-gray-800 border-l-gray-800 border-b-white border-r-white px-2 py-0.5 h-8 bg-[#c0c0c0]"
       }`}>
-        <span className={`text-xs ${isVista ? "[paint-order:stroke_fill] [-webkit-text-stroke:2px_black]" : "font-sans"}`}>
+        <span className={`text-xs ${isVista ? "[paint-order:stroke_fill] [-webkit-text-stroke:2px_black]" : "font-sans"} ${is98 && "text-black!"}`}>
           {date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
         </span>
       </div>
