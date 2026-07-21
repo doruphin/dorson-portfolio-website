@@ -227,7 +227,7 @@ export function Window({ data }: { data: DesktopWindowInterface }) {
               onClick={() => deleteWindow(data.id)}
               className="flex items-center justify-center bg-[#c0c0c0] text-black border-2 border-t-white border-l-white border-b-gray-800 border-r-gray-800 w-4 h-4 hover:cursor-pointer hover:active:border-t-gray-800 hover:active:border-l-gray-800 hover:active:border-b-white hover:active:border-r-white shrink-0"
             >
-              <i className="bi bi-x text-[16px] leading-[0] font-bold" />
+              <i className="bi bi-x text-[14px] leading-none font-bold" />
             </div>
           </>
         )}
