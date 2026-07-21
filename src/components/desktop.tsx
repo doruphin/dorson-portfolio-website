@@ -185,7 +185,7 @@ export function Desktop() {
 
       addWindows(
           "Guestbook",
-          "images/construction.gif",
+          "images/guestbook.ico",
            <GuestBook/>,
           false,
           300,
@@ -195,8 +195,8 @@ export function Desktop() {
 
       if (serverUp) {
         addWindows(
-          "Visitor Counter",
-          "images/construction.gif",
+          "Counter",
+          "images/counter.ico",
            <VisitCounter/>,
           false,
           300,

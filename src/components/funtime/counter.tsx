@@ -32,7 +32,7 @@ export function VisitCounter() {
 
   return (
     <div className="flex flex-col items-center justify-center bg-[#c0c0c0] p-2 sm:p-4 w-full h-full select-none">
-      <div className="font-bold text-xs sm:text-sm text-black mb-2 font-serif tracking-widest uppercase">
+      <div className="font-bold text-xs sm:text-sm text-black my-1 font-serif tracking-widest uppercase text-black!">
         You are visitor
       </div>
       <div className="flex w-full h-full bg-black p-[2px] shadow-[inset_0_2px_4px_rgba(0,0,0,1)] border-2 border-gray-600">
