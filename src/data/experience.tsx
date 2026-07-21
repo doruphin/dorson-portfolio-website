@@ -26,7 +26,7 @@ export const experiences: Experience[] = [
     description:
       "I am currently the software lead for UBC Subbots. We aim to create autonomous underwater vehicles for the annual international RoboSub competition. I work mostly with the controls system of the robot, and in our most recent competition, I led the team to the semi-finals.",
     bg: "images/subbots_bg.webp",
-    link: "https://github.com/ubc-subbots/steelhead",
+    link: "https://www.subbots.ca",
   },
   {
     icon: "images/shift.ico",
@@ -34,7 +34,7 @@ export const experiences: Experience[] = [
     subtitle: "C++ Developer",
     description:
       "My second internship was at Shift browser, under Redbrick. I worked as a C++ chromium developer.",
-    bg: "images/shift_bg.webp",
+    bg: "images/shift_bg.png",
     link: "https://www.rdbrck.com/shift",
   },
 ];

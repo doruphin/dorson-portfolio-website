@@ -1,10 +1,13 @@
 import { useEffect, type ReactNode } from "react";
-import { useWindowStore } from "./windows";
+import { useWindowStore, getThemeIcon } from "./windows";
 import { projectIcons } from "../data/projects";
 import { Contact } from "./contact";
 import { hobbyIcons } from "../data/hobbies";
 import { experienceIcons } from "../data/experience";
 import { educationIcons } from "../data/education";
+
+import { VisitCounter } from "./funtime/counter";
+import { GuestBook } from "./funtime/guestbook";
 
 export interface DesktopIcon {
   title: string;
@@ -41,7 +44,7 @@ const desktopFolders: DesktopIcon[] = [
     title: folder.title,
     iconPath: "images/folder.ico",
     content: (
-      <div className={"grid grid-cols-7 py-2 items-baseline"}>
+      <div className={"grid grid-cols-7 gap-y-4 py-2 items-start justify-items-center"}>
         <GridLayout
           icons={folder.icons}
           folder={false}
@@ -78,111 +81,131 @@ function GridLayout({
   startPos?: { x: number; y: number };
 }) {
   const addWindows = useWindowStore((state) => state.addWindow);
+  const theme = useWindowStore((state) => state.theme);
 
-  return icons.map((icon, index) => (
-    <div
-      key={icon.title || index}
-      className={`flex aspect-square w-20 h-20 flex-col justify-center items-center hover:cursor-pointer ${className ? className : ""}`}
-      onClick={() => {
-        addWindows(
-          icon.title,
-          icon.iconPath,
-          icon.content,
-          folder,
-          width,
-          height,
-          startPos
-        );
-      }}
-    >
-      <img src={icon.iconPath} className="w-12" />
-      <h2 className={`text-[0.9rem]! ${iconTextClassName ? iconTextClassName : ""}`}>{icon.title}</h2>
-    </div>
-  ));
+  return icons.map((icon, index) => {
+    const iconPath = getThemeIcon(icon.iconPath, theme);
+    return (
+      <div
+        key={icon.title || index}
+        className={`flex w-20 flex-col justify-start items-center hover:cursor-pointer text-center ${className ? className : ""}`}
+        onClick={() => {
+          addWindows(
+            icon.title,
+            iconPath,
+            icon.content,
+            folder,
+            width,
+            height,
+            startPos
+          );
+        }}
+      >
+        <img src={iconPath} className="w-12" />
+        <h2 className={`text-[0.9rem]! ${iconTextClassName ? iconTextClassName : ""}`}>{icon.title}</h2>
+      </div>
+    );
+  });
 }
 
 export function Desktop() {
   const addWindows = useWindowStore((state) => state.addWindow);
 
   useEffect(() => {
-    addWindows(
-      "Welcome!",
-      "images/favicon.ico",
-      <div className="p-3 space-y-3">
-        <h1 className="text-black! text-3xl">Hello there!</h1>
-        <p className="text-black!">
-          My name is Dorson Tang, and I'd like to formally extend to you an
-          invitation to my website!
-        </p>
-        <p className="text-black!">
-          If you are viewing this, you are most likely a recruiter looking at my
-          resume. No biases, but I think you should 100% hire me :{")"}.
-        </p>
-        <p className="text-black!">
-          As you can see, this isn't your standard portfolio website. Treat it
-          like a directory representing my accomplishments, projects, and
-          generally who I am as a person.
-        </p>
-        <p className="text-black!">
-          On the right are some open folders of my technical projects and
-          contact information. Feel free to click into the projects and read
-          what I have to say about them, some of them even have demos!
-        </p>
-        <p className="text-black!">
-          By the way, this website is fully open source and can be found{" "}
-          <a
-            href="https://github.com/doruphin/dorson-portfolio-website"
-            className="text-blue-500!"
-          >
-            here.
-          </a>
-        </p>
-      </div>,
-      false,
-      400,
-      550,
-      { x: window.innerWidth / 2 - 430, y: window.innerHeight / 2 - 270 },
-    );
+    (async () => {
+      let serverUp = false;
+      try {
+        const res = await fetch("https://api.dorsontang.com/guestbook", { method: "GET" });
+        if (res.ok) serverUp = true;
+      } catch {
+        serverUp = false;
+      }
 
-    addWindows(
-      "Projects",
-      "images/folder.ico",
-      desktopFolders[0].content,
-      true,
-      600,
-      220,
-      { x: window.innerWidth / 2, y: window.innerHeight / 2 - 270 },
-    );
+      const bentoWidth = 1190;
+      const bentoHeight = 550;
+      const startX = window.innerWidth / 2 - bentoWidth / 2;
+      const startY = window.innerHeight / 2 - bentoHeight / 2 - 20;
 
-    addWindows(
-      "Contact Me",
-      "images/contact.ico",
-      desktopFolders[desktopFolders.length - 1].content,
-      false,
-      600,
-      300,
-      { x: window.innerWidth / 2, y: window.innerHeight / 2 - 20 },
-    );
+      addWindows(
+        "Welcome!",
+        "images/favicon.ico",
+        <div className="p-3 space-y-3 font-size">
+          <img src="images/3d_hello.png" alt="3D word art that says: Hello There!" />
+          <p className="text-black!">
+            My name is Dorson Tang, and I'd like to formally extend to you an
+            invitation to my website!
+          </p>
+          <p className="text-black!">
+            If you are viewing this, you are most likely a recruiter looking at my
+            resume. No biases, but I think you should 100% hire me :{")"}.
+          </p>
+          <p className="text-black!">
+            I'd also recommend going into full screen for a better experience.
+          </p>
+          <p className="text-black!">
+            On the right are some open folders of my technical projects and
+            contact information. Feel free to click into the projects and read
+            what I have to say about them, some of them even have demos!
+          </p>
+          <p className="text-black!">
+            By the way, this website is fully open source and can be found{" "}
+            <a
+              href="https://github.com/doruphin/dorson-portfolio-website"
+              className="text-blue-500!"
+            >
+              here.
+            </a>
+          </p>
+        </div>,
+        false,
+        350,
+        550,
+        { x: startX, y: startY },
+      );
 
-    // addWindows(
-    //   "UNDERCONSTRUCTION",
-    //   "images/construction.gif",
-    //   <div>
-    //     <img src="images/construction.gif" />
-    //     <h1 className="text-black! bg-amber-300">
-    //       If you are seeing this, this website is going through some changes and
-    //       may not accurately represent a finished product
-    //     </h1>
-    //   </div>,
-    //   false,
-    //   200,
-    //   450,
-    //   {
-    //     x: window.innerWidth / 2 - 200 / 2,
-    //     y: window.innerHeight / 2 - 450 / 2,
-    //   },
-    // );
-  }, []);
+      addWindows(
+        "Projects",
+        "images/folder.ico",
+        desktopFolders[0].content,
+        true,
+        500,
+        250,
+        { x: startX + 370, y: startY },
+      );
+
+      addWindows(
+        "Contact Me",
+        "images/contact.ico",
+        desktopFolders[desktopFolders.length - 1].content,
+        false,
+        500,
+        280,
+        { x: startX + 370, y: startY + 270 },
+      );
+
+      addWindows(
+          "Guestbook",
+          "images/guestbook.ico",
+           <GuestBook/>,
+          false,
+          300,
+          serverUp ? 400 : 550,
+          { x: startX + 890, y: serverUp ? startY + 150 : startY },
+        );
+
+      if (serverUp) {
+        addWindows(
+          "Counter",
+          "images/counter.ico",
+           <VisitCounter/>,
+          false,
+          300,
+          130,
+          { x: startX + 890, y: startY },
+        );
+      }
+    })();
+  }, [addWindows]);
 
   return (
   <div className="w-full h-screen z-1 flex flex-col flex-wrap content-start gap-8 p-4 absolute">

@@ -25,6 +25,7 @@ export function DialogueBox({ dialogue }: { dialogue: { text: string }[] }) {
   }
   useEffect(() => {
     printText();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [play, { stop }] = useSound(talkingSfx, { volume: 0.2 });

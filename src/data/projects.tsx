@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import type { ReactNode } from "react";
 import type { DesktopIcon } from "../components/desktop";
 import { useWindowStore } from "../components/windows";
@@ -28,7 +29,7 @@ export const projects: Project[] = [
     bg: "images/execution_bg.png",
     title: "Execution Order",
     description:
-      "Execution Order was a project created for GMTK 2025, the largest game jam in Itch.io history. We created a puzzle game in under 72 hours, and I mainly worked on implementing the visuals and obstacles of the game. We placed in the top 5% amongst 37,000 participants, which is pretty impressive considering there were full on game companies in the competition.",
+      "Execution Order was a project created for GMTK 2025, the largest game jam in Itch.io history. We created a puzzle game in under 72 hours, and I worked on implementing the visuals and obstacles of the game. We placed in the top 5% amongst 37,000 participants, which is impressive considering there were full on game companies in attendence.",
     technologies: ["C#", "Unity"],
     executable: (
       <iframe
@@ -48,7 +49,7 @@ export const projects: Project[] = [
     bg: "images/bublstore_bg.png",
     title: "bublstore",
     description:
-      "bublstore was the first personal project I created just to learn the basics of web development and more specifically, the backend element of it. It was created using React + Tailwind, and featured an AI chatbot using a local Ollama LLM. Please do not enter in your credit card information though, as I'm pretty sure I stored it in plain text :).",
+      "bublstore was the first personal project I created just to learn the basics of web development and more specifically, the backend element of it. It was created using React + Tailwind, and featured an AI chatbot using a local Ollama LLM. Please do not enter in your credit card information though.",
     technologies: ["Python", "JavaScript", "Django", "Tailwind"],
   },
   {
@@ -84,43 +85,60 @@ function ProjectWindow({ project }: { project: Project }) {
   const addWindows = useWindowStore((state) => state.addWindow);
 
   return (
-    <div className="grid w-full h-full grid-cols-12">
-      <div className="col-span-8 h-full p-3 py-2">
-        <h1 className="text-black! text-3xl">{project.title}</h1>
-        <h2 className="text-gray-700! italic!">
-          {project.technologies.join(", ")}
-        </h2>
-        <p className="text-black! text-[1.15rem]">{project.description}</p>
+    <div className="flex w-full h-full font-sans bg-white">
+      <div className="w-2/3 h-full p-3 flex flex-col overflow-y-auto">
+        <h1 className="text-black! text-4xl font-extrabold tracking-tight drop-shadow-sm mb-1">{project.title}</h1>
+        
+        <div className="flex flex-wrap gap-2 mb-3">
+          {project.technologies.map((tech) => (
+            <span key={tech} className="px-2.5 py-0.5 bg-gray-200 text-gray-800 text-xs font-semibold rounded-md border border-gray-300 shadow-sm text-black!">
+              {tech}
+            </span>
+          ))}
+        </div>
+
+        <hr className="border-gray-300 mb-2 shadow-xs" />
+        
+        <p className="text-gray-900! text-base leading-relaxed flex-1">
+          {project.description}
+        </p>
       </div>
+
       <div
-        className="col-span-4 h-full text-center flex flex-col justify-center bg-position-[center_right_-4rem] bg-size-[600px] space-y-3"
+        className="w-1/2 h-full flex flex-col justify-end p-4 bg-cover bg-center border-l-2 border-gray-300/50 shadow-[inset_4px_0_10px_rgba(0,0,0,0.1)] relative"
         style={{ backgroundImage: `url(${project.bg})` }}
       >
-        <a
-          href={project.link}
-          target="_blank"
-          className="rounded-full bg-black/40 hover:cursor-pointer hover:bg-black/70 items-center p-2"
-        >
-          <i className="bi bi-box-arrow-up-right mr-2" />
-          <span>View the Project!</span>
-        </a>
-        {project.executable && (
-          <div
-            onClick={() =>
-              addWindows(
-                project.title.toLowerCase() + ".exe",
-                project.icon,
-                project.executable,
-                false,
-                980,
-                700,
-              )
-            }
-            className="rounded-full bg-black/40 hover:cursor-pointer hover:bg-black/70 items-center p-2"
+        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/80 to-transparent z-0"></div>
+
+        <div className="relative z-10 flex flex-col space-y-3 pb-2">
+          <a
+            href={project.link}
+            target="_blank"
+            className="group flex items-center justify-center w-full h-10 px-4 bg-white/20 backdrop-blur-md hover:bg-white/30 border border-white/20 rounded-lg text-white font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-lg"
           >
-            <i className="bi bi-play-fill" /> <span>Play a demo!</span>
-          </div>
-        )}
+            <i className="bi bi-box-arrow-up-right mr-2" />
+            <span>View Project</span>
+          </a>
+          
+          {project.executable && (
+            <div
+              onClick={() =>
+                addWindows(
+                  project.title.toLowerCase() + ".exe",
+                  project.icon,
+                  project.executable,
+                  false,
+                  970,
+                  650,
+                )
+              }
+              className="group flex items-center justify-center w-full h-10 px-4 bg-blue-600/80 backdrop-blur-md hover:bg-blue-500/90 border border-blue-400/50 rounded-lg text-white font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-lg shadow-blue-900/50 cursor-pointer"
+            >
+              <i className="bi bi-play-fill mr-1.5 text-lg" />
+              <span>Play Demo</span>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
