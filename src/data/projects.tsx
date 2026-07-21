@@ -113,8 +113,8 @@ function ProjectWindow({ project }: { project: Project }) {
                 project.icon,
                 project.executable,
                 false,
-                980,
-                700,
+                970,
+                650,
               )
             }
             className="rounded-full bg-black/40 hover:cursor-pointer hover:bg-black/70 items-center p-2"
