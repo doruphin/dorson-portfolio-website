@@ -1,11 +1,14 @@
 [
-  {
-    "text": "Click on me!"
-  },
-  {
-    "text": "What a great night to watch the shooting stars. You should try making a wish and see what happens!"
-  },
-  {
-    "text": "wait a minute, I hate stars!"
-  }
+  { "text": "It is certain." },
+  { "text": "It is decidedly so." },
+  { "text": "As I see it, yes." },
+  { "text": "Most likely." },
+  { "text": "Reply hazy, try again." },
+  { "text": "Ask again later." },
+  { "text": "Don't count on it." },
+  { "text": "My reply is no." },
+  
+  { "text": "why would i know? i'm just some ones and zeros." },
+  { "text": "idk man, ask someone else." },
+  { "text": "dude why are you asking me that" }
 ]

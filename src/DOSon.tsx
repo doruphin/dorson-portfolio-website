@@ -14,7 +14,9 @@ export function DOSon() {
       "Now in HD!",
       "As seen on TV!",
       "Top 100 coders! (probably)",
-      "Vista",
+      "XP",
+      "Nostalgia!",
+      "Throwback!"
     ];
     document.title =
       `DOSon: ` + slogans[Math.floor(Math.random() * slogans.length)];
