@@ -44,7 +44,7 @@ const desktopFolders: DesktopIcon[] = [
     title: folder.title,
     iconPath: "images/folder.ico",
     content: (
-      <div className={"grid grid-cols-7 py-2 items-baseline"}>
+      <div className={"grid grid-cols-7 gap-y-4 py-2 items-start justify-items-center"}>
         <GridLayout
           icons={folder.icons}
           folder={false}
@@ -88,7 +88,7 @@ function GridLayout({
     return (
       <div
         key={icon.title || index}
-        className={`flex aspect-square w-20 h-18 flex-col justify-center items-center hover:cursor-pointer ${className ? className : ""}`}
+        className={`flex w-20 flex-col justify-start items-center hover:cursor-pointer text-center ${className ? className : ""}`}
         onClick={() => {
           addWindows(
             icon.title,
@@ -121,7 +121,7 @@ export function Desktop() {
         serverUp = false;
       }
 
-      const bentoWidth = serverUp ? 1190 : 870;
+      const bentoWidth = 1190;
       const bentoHeight = 550;
       const startX = window.innerWidth / 2 - bentoWidth / 2;
       const startY = window.innerHeight / 2 - bentoHeight / 2 - 20;
@@ -129,7 +129,7 @@ export function Desktop() {
       addWindows(
         "Welcome!",
         "images/favicon.ico",
-        <div className="p-3 space-y-3">
+        <div className="p-3 space-y-3 font-size">
           <img src="images/3d_hello.png" alt="3D word art that says: Hello There!" />
           <p className="text-black!">
             My name is Dorson Tang, and I'd like to formally extend to you an
@@ -140,9 +140,7 @@ export function Desktop() {
             resume. No biases, but I think you should 100% hire me :{")"}.
           </p>
           <p className="text-black!">
-            As you can see, this isn't your standard portfolio website. Treat it
-            like a directory representing my accomplishments, projects, and
-            generally who I am as a person.
+            I'd also recommend going into full screen for a better experience.
           </p>
           <p className="text-black!">
             On the right are some open folders of my technical projects and
@@ -185,6 +183,16 @@ export function Desktop() {
         { x: startX + 370, y: startY + 270 },
       );
 
+      addWindows(
+          "Guestbook",
+          "images/construction.gif",
+           <GuestBook/>,
+          false,
+          300,
+          serverUp ? 400 : 550,
+          { x: startX + 890, y: serverUp ? startY + 150 : startY },
+        );
+
       if (serverUp) {
         addWindows(
           "Visitor Counter",
@@ -194,16 +202,6 @@ export function Desktop() {
           300,
           130,
           { x: startX + 890, y: startY },
-        );
-
-        addWindows(
-          "Guestbook",
-          "images/construction.gif",
-           <GuestBook/>,
-          false,
-          300,
-          400,
-          { x: startX + 890, y: startY + 150 },
         );
       }
     })();
