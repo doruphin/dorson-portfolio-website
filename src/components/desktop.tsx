@@ -5,6 +5,9 @@ import { Contact } from "./contact";
 import { hobbyIcons } from "../data/hobbies";
 import { experienceIcons } from "../data/experience";
 import { educationIcons } from "../data/education";
+import { DDSLoader } from "three/examples/jsm/Addons.js";
+import { VisitCounter } from "./funtime/counter";
+import { GuestBook } from "./funtime/guestbook";
 
 export interface DesktopIcon {
   title: string;
@@ -17,35 +20,7 @@ interface DesktopFolder {
   icons: DesktopIcon[];
 }
 
-const API = "https://api.dorsontang.com";
 
-interface CountResponse {
-  count: number;
-}
-
-export default function VisitCounter() {
-  const [count, setCount] = useState<number | null>(null);
-  const [error, setError] = useState(false);
-  const hasRun = useRef(false);
-
-  useEffect(() => {
-    if (hasRun.current) return; // prevent StrictMode double-increment
-    hasRun.current = true;
-
-    (async () => {
-      try {
-        const res = await fetch(`${API}/increment`, { method: "POST" });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data: CountResponse = await res.json();
-        setCount(data.count);
-      } catch {
-        setError(true);
-      }
-    })();
-  }, []);
-
-  return <p className="text-black!">You're visitor #{error ? "unavailable" : count ?? "…"}</p>;
-}
 
 const folders: DesktopFolder[] = [
   {
@@ -203,7 +178,6 @@ export function Desktop() {
           If you are seeing this, this website is going through some changes and
           may not accurately represent a finished product
         </h1>
-        <VisitCounter/>
       </div>,
       false,
       200,
@@ -211,6 +185,32 @@ export function Desktop() {
       {
         x: window.innerWidth / 2 - 200 / 2,
         y: window.innerHeight / 2 - 450 / 2,
+      },
+    );
+
+    addWindows(
+      "Visitor Counter",
+      "images/construction.gif",
+       <VisitCounter/>,
+      false,
+      250,
+      130,
+      {
+        x: window.innerWidth / 2 + 220 / 2,
+        y: window.innerHeight / 2 - 450 / 2,
+      },
+    );
+
+    addWindows(
+      "Guestbook",
+      "images/construction.gif",
+       <GuestBook/>,
+      false,
+      350,
+      450,
+      {
+        x: window.innerWidth / 2 + 110,
+        y: window.innerHeight / 2 - 80,
       },
     );
   }, []);

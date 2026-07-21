@@ -34,7 +34,7 @@ export const experiences: Experience[] = [
     subtitle: "C++ Developer",
     description:
       "My second internship was at Shift browser, under Redbrick. I worked as a C++ chromium developer.",
-    bg: "images/shift_bg.webp",
+    bg: "images/shift_bg.png",
     link: "https://www.rdbrck.com/shift",
   },
 ];

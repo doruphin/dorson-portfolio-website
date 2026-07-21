@@ -27,7 +27,7 @@ export function DOSon() {
         WARNING: This website isn't fully optimized for mobile/smaller screens
         yet. You should still be able to explore though.
       </div>
-      <BackgroundScene/>
+      {/* <BackgroundScene/> */}
       {windows.map((windowData) => (
         <Window key={windowData.id} data={windowData} />
       ))}
