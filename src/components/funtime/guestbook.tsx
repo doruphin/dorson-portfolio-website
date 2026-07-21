@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 const API = "https://api.dorsontang.com";
 
@@ -11,21 +11,16 @@ interface GuestBookEntry {
 
 export function GuestBook() {
   const [entries, setEntries] = useState<GuestBookEntry[] | null>(null);
-  const [error, setError] = useState(false);
-  const hasRun = useRef(false);
 
   useEffect(() => {
-    if (hasRun.current) return; 
-    hasRun.current = true;
-
     (async () => {
       try {
         const res = await fetch(`${API}/guestbook`, { method: "GET" });
         if (!res.ok) throw new Error("Failed to fetch");
         const jsn = await res.json();
         setEntries(jsn.entries);
-      } catch (e) {
-        setError(true);
+      } catch {
+        // error handling
       }
     })();
   }, []);
@@ -37,7 +32,7 @@ export function GuestBook() {
     >
       <div className="text-center mb-4 border-b-4 border-double border-white pb-2 bg-[#000080]/80 p-2">
         <h1 className="text-xl sm:text-2xl font-bold italic tracking-wider text-yellow-300 drop-shadow-[2px_2px_0_#000]">
-          ~*~ My Guestbook ~*~
+          ~ My Guestbook ~
         </h1>
         <p className="text-[10px] sm:text-xs mt-1 text-cyan-200">Thanks for dropping by!</p>
       </div>
@@ -68,9 +63,9 @@ export function GuestBook() {
       
       <div className="text-center mt-6 p-2 bg-black/50 border-t border-gray-500">
         <div className="flex justify-center items-center gap-2">
-          <img src="images/construction.gif" className="h-6 w-auto pixelated" alt="construction" />
-          <span className="text-[10px] text-gray-300 font-mono">EST. 1999</span>
-          <img src="images/construction.gif" className="h-6 w-auto pixelated" alt="construction" />
+          <img src="images/torch.gif" className="h-6 w-auto pixelated" alt="construction" />
+          <span className="text-[10px] text-gray-300 font-mono">EST. 2026</span>
+          <img src="images/torch.gif" className="h-6 w-auto pixelated" alt="construction" />
         </div>
       </div>
     </div>

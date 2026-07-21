@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import type { ReactNode } from "react";
 import type { DesktopIcon } from "../components/desktop";
 import { useWindowStore } from "../components/windows";

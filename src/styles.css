@@ -17,7 +17,6 @@ body {
 }
 
 * {
-  font-family: "Source Sans 3", sans-serif;
   font-optical-sizing: auto;
   font-weight: 500;
   font-style: normal;
@@ -29,6 +28,19 @@ body {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
+}
+
+.theme-vista, .theme-vista * {
+  font-family: "Segoe UI", "Source Sans 3", sans-serif;
+}
+
+.theme-xp, .theme-xp * {
+  font-family: Tahoma, "Trebuchet MS", sans-serif;
+}
+
+.theme-win98, .theme-win98 * {
+  font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
+  -webkit-font-smoothing: none;
 }
 
 @keyframes blob {

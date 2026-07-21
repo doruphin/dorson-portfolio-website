@@ -1,5 +1,4 @@
-import * as THREE from "three";
-import { Canvas, useLoader } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import { useGLTF, useAnimations } from '@react-three/drei';
 import { useEffect, useState } from "react";
 
@@ -9,7 +8,7 @@ import { useEffect, useState } from "react";
 let poses: string[];
 
 export function AnimatedDumbBot({ currentPose } : {currentPose: string}) {
-  const { nodes, materials, animations } = useGLTF("/models/villager/villager.gltf");
+  const { nodes, animations } = useGLTF("/models/villager/villager.gltf");
   const { ref, actions, names } = useAnimations(animations);
   poses = names;
 

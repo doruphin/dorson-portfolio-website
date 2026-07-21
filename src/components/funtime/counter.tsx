@@ -31,19 +31,19 @@ export function VisitCounter() {
   const digits = displayCount !== null ? displayCount.toString().padStart(6, '0').split('') : ['-','-','-','-','-','-'];
 
   return (
-    <div className="flex flex-col items-center bg-[#c0c0c0] p-2 border-t-white border-l-white border-b-gray-800 border-r-gray-800 border-2 w-fit mx-auto mt-2 select-none">
-      <div className="font-bold text-[10px] text-black mb-1 font-serif tracking-widest uppercase">
+    <div className="flex flex-col items-center justify-center bg-[#c0c0c0] p-2 sm:p-4 w-full h-full select-none">
+      <div className="font-bold text-xs sm:text-sm text-black mb-2 font-serif tracking-widest uppercase">
         You are visitor
       </div>
-      <div className="flex bg-black p-[2px] shadow-[inset_0_2px_4px_rgba(0,0,0,1)] border-2 border-gray-600">
+      <div className="flex w-full h-full bg-black p-[2px] shadow-[inset_0_2px_4px_rgba(0,0,0,1)] border-2 border-gray-600">
         {digits.map((digit, i) => (
           <div 
             key={i} 
-            className="relative bg-[#222] text-white font-mono text-xl sm:text-2xl font-bold px-1 sm:px-2 py-1 border-r border-black last:border-r-0 flex items-center justify-center min-w-[24px] sm:min-w-[32px] shadow-[inset_0_1px_5px_rgba(0,0,0,0.8)]"
+            className="relative flex-1 bg-[#222] text-white font-mono text-4xl sm:text-6xl font-bold border-r border-black last:border-r-0 flex items-center justify-center shadow-[inset_0_1px_5px_rgba(0,0,0,0.8)] overflow-hidden"
           >
             {/* Middle line for mechanical odometer look */}
-            <div className="absolute top-1/2 left-0 w-full h-[1px] bg-black/60 z-10"></div>
-            <span className="relative z-0" style={{ textShadow: '0 1px 2px rgba(0,0,0,1)' }}>
+            <div className="absolute top-1/2 left-0 w-full h-[2px] bg-black/60 z-10"></div>
+            <span className="relative z-0" style={{ textShadow: '0 2px 4px rgba(0,0,0,1)' }}>
               {digit}
             </span>
           </div>

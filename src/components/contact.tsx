@@ -27,7 +27,7 @@ export function Contact() {
   return (
     <div className="w-full text-dark">
       <div className="w-full p-8 grid grid-cols-6 ">
-        <div className="col-span-2">
+        <div className="col-span-1">
           <img src="images/id.ico" alt="pfp" className="w-32 rounded-full" />
         </div>
         <div className="col-span-4 pl-2">
@@ -58,6 +58,9 @@ export function Contact() {
               tag="Resume as of 2026-01-30"
             />
           </div>
+        </div>
+        <div className="col-span-1">
+          <img src="images/dancin_cat.gif" alt="A dancing cat gif" />
         </div>
       </div>
     </div>
