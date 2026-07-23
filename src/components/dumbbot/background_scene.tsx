@@ -39,13 +39,24 @@ export function AnimatedDumbBot({ currentPose, onClick } : {currentPose: string,
 useGLTF.preload("/models/villager/villager.gltf");
 
 export function BackgroundScene() {
-  const [stage, setStage] = useState<"STARTING" | "IDLE" | "INPUT" | "ANSWERING">("STARTING");
+  const [stage, setStage] = useState<"HIDDEN" | "MODEL_ONLY" | "STARTING" | "IDLE" | "INPUT" | "ANSWERING">("HIDDEN");
   const [pose, setPose] = useState('Pose_Idle');
   const [answer, setAnswer] = useState<{text: string}[]>([{text: ""}]);
   const [inputValue, setInputValue] = useState("");
 
   const { animations } = useGLTF("/models/villager/villager.gltf");
   const poses = useMemo(() => animations.map(a => a.name), [animations]);
+
+  useEffect(() => {
+    if (stage === "HIDDEN") {
+      const timer = setTimeout(() => setStage("MODEL_ONLY"), 3000);
+      return () => clearTimeout(timer);
+    }
+    if (stage === "MODEL_ONLY") {
+      const timer = setTimeout(() => setStage("STARTING"), 700);
+      return () => clearTimeout(timer);
+    }
+  }, [stage]);
 
   const handleBotClick = () => {
     if (stage === "IDLE") {
@@ -74,9 +85,9 @@ export function BackgroundScene() {
   return (
     <div className="fixed bottom-6 right-12 z-[4900] flex items-end pointer-events-none">
       {/* Dialogue / Input Overlay */}
-      <div className="absolute bottom-[10px] right-[50px] pointer-events-auto z-50">
-        {stage !== "IDLE" && (
-          <div className="scale-[0.35] origin-bottom-right">
+      <div className="absolute bottom-[45px] right-[-165px] pointer-events-auto z-50">
+        {["STARTING", "INPUT", "ANSWERING"].includes(stage) && (
+          <div className="scale-[0.50] origin-bottom-right">
             <DialogueBox 
               dialogue={stage === "STARTING" ? startingDialogue : stage === "INPUT" ? [{text: "Ask me a yes or no question!"}] : answer} 
               isInput={stage === "INPUT"}
@@ -91,8 +102,12 @@ export function BackgroundScene() {
       </div>
 
       {/* Bot Canvas */}
-      <div className="w-[300px] h-[400px] pointer-events-auto relative z-10">
-        <Canvas camera={{ position: [0, 2, 6.5], fov: 50 }}>
+      <div 
+        className={`w-[400px] h-[500px] pointer-events-auto relative bottom-[-33px] z-10 transition-all duration-[800ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] ${
+          stage === "HIDDEN" ? "translate-y-[110%] opacity-0" : "translate-y-0 opacity-100"
+        }`}
+      >
+        <Canvas camera={{ position: [0, 1.2, 6.0], fov: 55 }}>
           <ambientLight intensity={1.5} />
           <directionalLight position={[10, 10, 5]} intensity={1} />
           <AnimatedDumbBot currentPose={pose} onClick={handleBotClick} />
