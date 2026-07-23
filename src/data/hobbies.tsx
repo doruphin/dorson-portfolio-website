@@ -1,4 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
 import type { DesktopIcon } from "../components/desktop";
 import YouTube from "react-youtube";
 import { lazy, Suspense } from "react";
