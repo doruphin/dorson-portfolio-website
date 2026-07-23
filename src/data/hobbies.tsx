@@ -1,72 +1,9 @@
 /* eslint-disable react-refresh/only-export-components */
 import type { DesktopIcon } from "../components/desktop";
 import YouTube from "react-youtube";
-import { Suspense, useState } from "react";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls, useGLTF, Stage, Grid } from "@react-three/drei";
+import { lazy, Suspense } from "react";
 
-const BlenderScene = () => {
-  const [index, setIndex] = useState(0);
-
-  const nextModel = () => setIndex((prev) => (prev + 1) % MODELS.length);
-  const prevModel = () => {
-    console.log(index);
-    setIndex((prev) => (prev - 1 + MODELS.length) % MODELS.length);
-  };
-
-  const MODELS = [{ path: "/models/violence mask.glb" }, { path: "/models/ranger mask.glb" }];
-
-  function Model({ path }: { path: string }) {
-    const { scene } = useGLTF(path);
-    return (
-      <primitive object={scene} position={[0, 0, 0]} rotation={[0, 4, 0]} />
-    );
-  }
-
-  return (
-    <div
-      style={{
-        background: "#151515",
-        height: "100%",
-        position: "relative",
-      }}
-    >
-      {/* 1. UI OVERLAY (Arrows) */}
-      <div className="absolute top-1/2 w-full z-10 flex justify-between px-8 text-3xl!">
-        <i
-          className="bi bi-arrow-left-short hover:cursor-pointer"
-          onClick={prevModel}
-        />
-        <i
-          className="bi bi-arrow-right-short hover:cursor-pointer"
-          onClick={nextModel}
-        />
-      </div>
-
-      {/* 2. THREE.JS CANVAS */}
-      <Canvas shadows camera={{ position: [5, 5, 5], fov: 45 }}>
-        <color attach="background" args={["#151515"]} />
-
-        <Grid
-          infiniteGrid
-          fadeDistance={50}
-          sectionSize={1.5}
-          sectionColor="#333"
-          cellColor="#222"
-        />
-
-        <Suspense fallback={null}>
-          {/* Stage will re-center and re-size whenever the model path changes */}
-          <Stage environment="city" intensity={0.5}>
-            <Model path={MODELS[index].path} />
-          </Stage>
-        </Suspense>
-
-        <OrbitControls makeDefault />
-      </Canvas>
-    </div>
-  );
-};
+const BlenderScene = lazy(() => import("../components/BlenderScene"));
 
 export const hobbyIcons: DesktopIcon[] = [
   {
@@ -139,7 +76,9 @@ export const hobbyIcons: DesktopIcon[] = [
         <img src="images/blender.ico" className="absolute w-4 h-4 ml-3 mt-1" />
         <div className="grid grid-cols-11 p-3 pt-6 h-full bg-black/80 gap-x-1">
           <div className="col-span-7 h-full bg-white/20 w-full rounded-lg">
-            <BlenderScene />
+            <Suspense fallback={<div className="w-full h-full flex items-center justify-center text-white">Loading 3D...</div>}>
+              <BlenderScene />
+            </Suspense>
           </div>
           <div className="col-span-4 h-full w-full rounded-lg flex flex-col space-y-1">
             <div className="h-30 w-full rounded-lg bg-white/20 flex flex-col">

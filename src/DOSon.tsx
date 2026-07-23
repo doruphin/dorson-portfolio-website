@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { Desktop } from "./components/desktop";
 import { Taskbar } from "./components/taskbar";
 import { useWindowStore, Window } from "./components/windows";
 import "./styles.css";
-import Background from "./components/background";
 
+const Background = lazy(() => import("./components/background"));
+const BackgroundScene = lazy(() => import("./components/dumbbot/background_scene").then(m => ({ default: m.BackgroundScene })));
 
 export function DOSon() {
 
@@ -14,7 +15,9 @@ export function DOSon() {
       "Now in HD!",
       "As seen on TV!",
       "Top 100 coders! (probably)",
-      "Vista",
+      "XP",
+      "Nostalgia!",
+      "Throwback!"
     ];
     document.title =
       `DOSon: ` + slogans[Math.floor(Math.random() * slogans.length)];
@@ -45,14 +48,20 @@ export function DOSon() {
         WARNING: This website isn't fully optimized for mobile/smaller screens
         yet. You should still be able to explore though.
       </div>
-      {/* <BackgroundScene/> */}
+      <Suspense fallback={null}>
+        <BackgroundScene />
+      </Suspense>
       {windows.map((windowData) => (
         <Window key={windowData.id} data={windowData} />
       ))}
       <Desktop />
       <Taskbar />
       <div className="h-screen fixed inset-0 -z-10 bg-black">
-        {theme === 'vista' && <Background waveSpeed={0.005} />}
+        {theme === 'vista' && (
+          <Suspense fallback={null}>
+            <Background waveSpeed={0.005} />
+          </Suspense>
+        )}
         {theme === 'xp' && (
           <div className="w-full h-full bg-cover bg-center" style={{ backgroundImage: 'url("images/desktop_bg_xp.jpg")' }} />
         )}
