@@ -57,6 +57,7 @@ export function AnimatedDumbBot({ currentPose, isTalking, onClick } : {currentPo
 }
 
 useGLTF.preload("/models/villager/villager.gltf");
+useTexture.preload("/models/villager/face_talk.png");
 
 const INPUT_DIALOGUE = [{text: "Ask me a yes or no question!"}];
 
