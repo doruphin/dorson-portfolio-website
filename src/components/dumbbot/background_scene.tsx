@@ -1,30 +1,36 @@
 import { Canvas } from "@react-three/fiber";
 import { useGLTF, useAnimations } from '@react-three/drei';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
+import { DialogueBox } from "./dialogue_box";
+import startingDialogue from "./starting_dialogue.json";
+import eightBallDialogue from "./8ball_dialogue.json";
 
-// let neck: THREE.Object3D<THREE.Object3DEventMap>;
-// let waist: THREE.Object3D<THREE.Object3DEventMap>;
-
-let poses: string[];
-
-export function AnimatedDumbBot({ currentPose } : {currentPose: string}) {
+export function AnimatedDumbBot({ currentPose, onClick } : {currentPose: string, onClick?: () => void}) {
   const { nodes, animations } = useGLTF("/models/villager/villager.gltf");
-  const { ref, actions, names } = useAnimations(animations);
-  poses = names;
+  const { ref, actions } = useAnimations(animations);
 
   useEffect(() => {
     const action = actions[currentPose];
     if (!action) return;
-
     action.reset().fadeIn(0.5).play();
-
     return () => {
       action.fadeOut(0.5);
     };
   }, [currentPose, actions]);
 
   return (
-    <group ref={ref} dispose={null}>
+    <group 
+      ref={ref} 
+      dispose={null} 
+      onClick={(e) => {
+        if (onClick) {
+          e.stopPropagation();
+          onClick();
+        }
+      }} 
+      onPointerOver={(e) => { document.body.style.cursor = 'pointer'; e.stopPropagation(); }} 
+      onPointerOut={() => { document.body.style.cursor = 'default'; }}
+    >
       <primitive object={nodes.Scene} />
     </group>
   );
@@ -33,106 +39,65 @@ export function AnimatedDumbBot({ currentPose } : {currentPose: string}) {
 useGLTF.preload("/models/villager/villager.gltf");
 
 export function BackgroundScene() {
+  const [stage, setStage] = useState<"STARTING" | "IDLE" | "INPUT" | "ANSWERING">("STARTING");
   const [pose, setPose] = useState('Pose_Idle');
+  const [answer, setAnswer] = useState<{text: string}[]>([{text: ""}]);
+  const [inputValue, setInputValue] = useState("");
 
-  useEffect(() => {
-    const handleGlobalKeyDown = (event: KeyboardEvent) => {
-      if (event.key === '1') {
-        setPose(poses[0]);
-      }
+  const { animations } = useGLTF("/models/villager/villager.gltf");
+  const poses = useMemo(() => animations.map(a => a.name), [animations]);
 
-      if (event.key === '2') {
-        setPose(poses[1]);
-      }
+  const handleBotClick = () => {
+    if (stage === "IDLE") {
+      setStage("INPUT");
+    }
+  };
 
-      if (event.key === '3') {
-        setPose(poses[2]);
-      }
+  const handleInputSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && inputValue.trim() !== '') {
+      const randomAnswer = eightBallDialogue[Math.floor(Math.random() * eightBallDialogue.length)];
+      setAnswer([randomAnswer]);
+      
+      cycleRandomPose();
+      setStage("ANSWERING");
+      setInputValue("");
+    }
+  };
 
-      if (event.key === '4') {
-        setPose(poses[3]);
-      }
-    };
-
-    window.addEventListener('keydown', handleGlobalKeyDown);
-
-    return () => {
-      window.removeEventListener('keydown', handleGlobalKeyDown);
-    };
-  }, []);
+  const cycleRandomPose = () => {
+    if (poses.length > 0) {
+      const randomPose = poses[Math.floor(Math.random() * poses.length)];
+      setPose(randomPose);
+    }
+  };
 
   return (
-    <Canvas className="absolute! z-2">
-      <ambientLight intensity={1} />
-      <AnimatedDumbBot currentPose={pose} />
-    </Canvas>
-    
+    <div className="fixed bottom-6 right-12 z-[4900] flex items-end pointer-events-none">
+      {/* Dialogue / Input Overlay */}
+      <div className="absolute bottom-[10px] right-[50px] pointer-events-auto z-50">
+        {stage !== "IDLE" && (
+          <div className="scale-[0.35] origin-bottom-right">
+            <DialogueBox 
+              dialogue={stage === "STARTING" ? startingDialogue : stage === "INPUT" ? [{text: "Ask me a yes or no question!"}] : answer} 
+              isInput={stage === "INPUT"}
+              inputValue={inputValue}
+              onInputChange={setInputValue}
+              onInputSubmit={handleInputSubmit}
+              onComplete={() => setStage("IDLE")}
+              onDialogChange={cycleRandomPose}
+            />
+          </div>
+        )}
+      </div>
+
+      {/* Bot Canvas */}
+      <div className="w-[300px] h-[400px] pointer-events-auto relative z-10">
+        <Canvas camera={{ position: [0, 2, 6.5], fov: 50 }}>
+          <ambientLight intensity={1.5} />
+          <directionalLight position={[10, 10, 5]} intensity={1} />
+          <AnimatedDumbBot currentPose={pose} onClick={handleBotClick} />
+        </Canvas>
+      </div>
+    </div>
   );
 }
-
-
-// function getMousePos(e: MouseEvent) {
-//   return { x: e.clientX, y: e.clientY };
-// }
-
-// document.addEventListener("mousemove", function (e) {
-//   const mousecoords = getMousePos(e);
-//   if (neck && waist) {
-//     moveJoint(mousecoords, neck, 50);
-//     moveJoint(mousecoords, waist, 30);
-//   }
-// });
-
-// function moveJoint(
-//   mouse: { x: number; y: number },
-//   joint: THREE.Object3D<THREE.Object3DEventMap>,
-//   degreeLimit: number,
-// ) {
-//   const degrees = getMouseDegrees(mouse.x, mouse.y, degreeLimit);
-//   joint.rotation.y = THREE.MathUtils.degToRad(degrees.x);
-//   joint.rotation.x = THREE.MathUtils.degToRad(degrees.y);
-// }
-
-// function getMouseDegrees(x: number, y: number, degreeLimit: number) {
-//   let dx = 0,
-//     dy = 0,
-//     xdiff,
-//     xPercentage,
-//     ydiff,
-//     yPercentage;
-
-//   const w = { x: window.innerWidth, y: window.innerHeight };
-
-//   // Left (Rotates neck left between 0 and -degreeLimit)
-
-//   // 1. If cursor is in the left half of screen
-//   if (x <= w.x / 2) {
-//     // 2. Get the difference between middle of screen and cursor position
-//     xdiff = w.x / 2 - x;
-//     // 3. Find the percentage of that difference (percentage toward edge of screen)
-//     xPercentage = (xdiff / (w.x / 2)) * 100;
-//     // 4. Convert that to a percentage of the maximum rotation we allow for the neck
-//     dx = ((degreeLimit * xPercentage) / 100) * -1;
-//   }
-//   // Right (Rotates neck right between 0 and degreeLimit)
-//   if (x >= w.x / 2) {
-//     xdiff = x - w.x / 2;
-//     xPercentage = (xdiff / (w.x / 2)) * 100;
-//     dx = (degreeLimit * xPercentage) / 100;
-//   }
-//   // Up (Rotates neck up between 0 and -degreeLimit)
-//   if (y <= w.y / 2) {
-//     ydiff = w.y / 2 - y;
-//     yPercentage = (ydiff / (w.y / 2)) * 100;
-//     // Note that I cut degreeLimit in half when she looks up
-//     dy = ((degreeLimit * 0.5 * yPercentage) / 100) * -1;
-//   }
-
-//   // Down (Rotates neck down between 0 and degreeLimit)
-//   if (y >= w.y / 2) {
-//     ydiff = y - w.y / 2;
-//     yPercentage = (ydiff / (w.y / 2)) * 100;
-//     dy = (degreeLimit * yPercentage) / 100;
-//   }
-//   return { x: dx, y: dy };
-// }

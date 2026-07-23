@@ -4,6 +4,7 @@ import { Taskbar } from "./components/taskbar";
 import { useWindowStore, Window } from "./components/windows";
 import "./styles.css";
 import Background from "./components/background";
+import { BackgroundScene } from "./components/dumbbot/background_scene";
 
 
 export function DOSon() {
@@ -47,7 +48,7 @@ export function DOSon() {
         WARNING: This website isn't fully optimized for mobile/smaller screens
         yet. You should still be able to explore though.
       </div>
-      {/* <BackgroundScene/> */}
+      <BackgroundScene />
       {windows.map((windowData) => (
         <Window key={windowData.id} data={windowData} />
       ))}

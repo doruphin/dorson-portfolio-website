@@ -1,47 +1,77 @@
-import { useEffect, useState } from "react";
-import "./styles.css";
+import React, { useEffect, useState, useRef } from "react";
 import clsx from "clsx";
-import talkingSfx from "../public/audio/sans.mp3";
 import useSound from "use-sound";
 
-export function DialogueBox({ dialogue }: { dialogue: { text: string }[] }) {
+export function DialogueBox({ 
+  dialogue, 
+  onComplete, 
+  onDialogChange,
+  isInput = false,
+  inputValue = "",
+  onInputChange,
+  onInputSubmit
+}: { 
+  dialogue: { text: string }[], 
+  onComplete?: () => void, 
+  onDialogChange?: () => void,
+  isInput?: boolean,
+  inputValue?: string,
+  onInputChange?: (val: string) => void,
+  onInputSubmit?: (e: React.KeyboardEvent<HTMLInputElement>) => void
+}) {
   const [displayedText, setDisplayedText] = useState("");
   const [doneSpeaking, setDoneSpeaking] = useState(false);
+  const [textIndex, setTextIndex] = useState(0);
 
-  let ind = 0;
-  let textIndex = 0;
+  const indRef = useRef(0);
+  const [play, { stop }] = useSound("/audio/sans.mp3", { volume: 0.2 });
 
-  function printText() {
+  useEffect(() => {
+    if (textIndex >= dialogue.length) {
+      if (onComplete) onComplete();
+      return;
+    }
+
+    if (isInput) {
+      setDisplayedText(dialogue[textIndex].text);
+      setDoneSpeaking(true);
+      return;
+    }
+
+    indRef.current = 0;
+    setDisplayedText("");
+    setDoneSpeaking(false);
+    
     play();
+    const currentText = dialogue[textIndex].text;
     const refreshIntervalId = setInterval(() => {
-      ind++;
-      setDisplayedText(dialogue[textIndex].text.substring(0, ind));
-      if (ind === dialogue[textIndex].text.length) {
+      indRef.current++;
+      setDisplayedText(currentText.substring(0, indRef.current));
+      if (indRef.current === currentText.length) {
         setDoneSpeaking(true);
         clearInterval(refreshIntervalId);
         stop();
       }
     }, 25);
-  }
-  useEffect(() => {
-    printText();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
-  const [play, { stop }] = useSound(talkingSfx, { volume: 0.2 });
+    return () => {
+      clearInterval(refreshIntervalId);
+      stop();
+    };
+  }, [textIndex, dialogue, play, stop, onComplete, isInput]);
+
+  if (textIndex >= dialogue.length) return null;
 
   return (
     <div
       className={clsx(
         "relative flex max-h-1/2 min-h-[300px] min-w-[1024px] w-[1250px] z-50",
-        doneSpeaking && "cursor-pointer",
+        (doneSpeaking && !isInput) && "cursor-pointer",
       )}
       onClick={() => {
-        if (doneSpeaking) {
-          setDisplayedText("");
-          setDoneSpeaking(false);
-          printText();
-          textIndex++;
+        if (doneSpeaking && !isInput) {
+          setTextIndex(t => t + 1);
+          if (onDialogChange) onDialogChange();
         }
       }}
     >
@@ -70,12 +100,32 @@ export function DialogueBox({ dialogue }: { dialogue: { text: string }[] }) {
             borderRadius: "5% 5% 20% 20% / 100% 100% 100% 100%",
           }}
         />
-        <p
-          className="absolute w-full text-[2.75rem] text-[#807256] font-bold"
-          style={{ padding: "1em 1em 2em 1.5em", fontFamily: "sans-serif" }}
-        >
-          {displayedText}
-        </p>
+        {isInput ? (
+          <div 
+            className="absolute w-full h-full flex flex-col justify-center items-start z-20 text-[2.75rem]"
+            style={{ padding: "1em 1em 2em 1.5em" }}
+          >
+            <p className="text-[#807256]! font-bold mb-4" style={{ fontFamily: "sans-serif" }}>
+              {displayedText}
+            </p>
+            <input 
+              autoFocus
+              type="text" 
+              value={inputValue}
+              onChange={(e) => onInputChange && onInputChange(e.target.value)}
+              onKeyDown={(e) => onInputSubmit && onInputSubmit(e)}
+              className="text-[2.5rem] bg-transparent border-b-4 border-[#807256] text-[#482016]! font-bold outline-none w-[60%] focus:border-[#dd8530] pb-2 px-2"
+              style={{ fontFamily: "sans-serif" }}
+            />
+          </div>
+        ) : (
+          <p
+            className="absolute w-full text-[2.75rem] text-[#807256]! font-bold z-20"
+            style={{ padding: "1em 1em 2em 1.5em", fontFamily: "sans-serif" }}
+          >
+            {displayedText}
+          </p>
+        )}
       </div>
 
       <div
@@ -100,24 +150,25 @@ export function DialogueBox({ dialogue }: { dialogue: { text: string }[] }) {
         </div>
       </div>
 
-      <svg
-        className={"absolute bottom-0 left-[512px] origin-center0"}
-        style={{
-          transform: "scale(0)",
-          animation:
-            "arrow 0.6s cubic-bezier(0.37, 0, 0.63, 1) 4.5s infinite alternate",
-        }}
-        width="45"
-        height="25"
-        viewBox="0 0 45 25"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M22.5 25C18.0184 25 7.59473 12.6404 1.55317 4.96431C-0.122281 2.83559 1.72264 -0.179893 4.39835 0.243337C10.2831 1.17415 18.2164 2.28736 22.5 2.28736C26.7836 2.28736 34.7169 1.17415 40.6017 0.243339C43.2774 -0.17989 45.1223 2.83559 43.4468 4.96431C37.4053 12.6404 26.9816 25 22.5 25Z"
-          fill="#F1AE04"
-        />
-      </svg>
+      {(doneSpeaking && !isInput) && (
+        <svg
+          className={"absolute bottom-0 left-[1024px] origin-center0"}
+          style={{
+            animation:
+              "arrow 0.6s cubic-bezier(0.37, 0, 0.63, 1) infinite alternate",
+          }}
+          width="45"
+          height="25"
+          viewBox="0 0 45 25"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M22.5 25C18.0184 25 7.59473 12.6404 1.55317 4.96431C-0.122281 2.83559 1.72264 -0.179893 4.39835 0.243337C10.2831 1.17415 18.2164 2.28736 22.5 2.28736C26.7836 2.28736 34.7169 1.17415 40.6017 0.243339C43.2774 -0.17989 45.1223 2.83559 43.4468 4.96431C37.4053 12.6404 26.9816 25 22.5 25Z"
+            fill="#F1AE04"
+          />
+        </svg>
+      )}
 
       <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
         <defs>
