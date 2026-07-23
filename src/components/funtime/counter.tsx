@@ -41,7 +41,6 @@ export function VisitCounter() {
             key={i} 
             className="relative flex-1 bg-[#222] text-white font-mono text-4xl sm:text-6xl font-bold border-r border-black last:border-r-0 flex items-center justify-center shadow-[inset_0_1px_5px_rgba(0,0,0,0.8)] overflow-hidden"
           >
-            {/* Middle line for mechanical odometer look */}
             <div className="absolute top-1/2 left-0 w-full h-[2px] bg-black/60 z-10"></div>
             <span className="relative z-0" style={{ textShadow: '0 2px 4px rgba(0,0,0,1)' }}>
               {digit}
