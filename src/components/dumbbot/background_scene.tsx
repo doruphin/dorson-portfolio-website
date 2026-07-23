@@ -1,13 +1,33 @@
 import { Canvas } from "@react-three/fiber";
-import { useGLTF, useAnimations } from '@react-three/drei';
+import { useGLTF, useAnimations, useTexture } from '@react-three/drei';
 import { useEffect, useState, useMemo, useCallback } from "react";
+import * as THREE from "three";
 import { DialogueBox } from "./dialogue_box";
 import startingDialogue from "./starting_dialogue.json";
 import eightBallDialogue from "./8ball_dialogue.json";
 
-export function AnimatedDumbBot({ currentPose, onClick } : {currentPose: string, onClick?: () => void}) {
-  const { nodes, animations } = useGLTF("/models/villager/villager.gltf");
+export function AnimatedDumbBot({ currentPose, isTalking, onClick } : {currentPose: string, isTalking?: boolean, onClick?: () => void}) {
+  const { nodes, materials, animations } = useGLTF("/models/villager/villager.gltf");
   const { ref, actions } = useAnimations(animations);
+  
+  const faceTalkTexture = useTexture("/models/villager/face_talk.png");
+  
+  useEffect(() => {
+    faceTalkTexture.flipY = false;
+    faceTalkTexture.colorSpace = THREE.SRGBColorSpace;
+    faceTalkTexture.needsUpdate = true;
+  }, [faceTalkTexture]);
+
+  useEffect(() => {
+    const faceMaterial = (materials as any).face;
+    if (faceMaterial) {
+      if (!faceMaterial.userData.originalMap) {
+        faceMaterial.userData.originalMap = faceMaterial.map;
+      }
+      faceMaterial.map = isTalking ? faceTalkTexture : faceMaterial.userData.originalMap;
+      faceMaterial.needsUpdate = true;
+    }
+  }, [isTalking, materials, faceTalkTexture]);
 
   useEffect(() => {
     const action = actions[currentPose];
@@ -47,6 +67,7 @@ export function BackgroundScene() {
   const [pose, setPose] = useState('Pose_Idle');
   const [answer, setAnswer] = useState<{text: string}[]>([{text: ""}]);
   const [inputValue, setInputValue] = useState("");
+  const [isMouthOpen, setIsMouthOpen] = useState(false);
 
   const { animations } = useGLTF("/models/villager/villager.gltf");
   const poses = useMemo(() => animations.map(a => a.name), [animations]);
@@ -114,6 +135,7 @@ export function BackgroundScene() {
               onInputSubmit={handleInputSubmit}
               onComplete={handleComplete}
               onDialogChange={cycleRandomPose}
+              onMouthToggle={setIsMouthOpen}
             />
           </div>
         )}
@@ -138,7 +160,11 @@ export function BackgroundScene() {
         <Canvas camera={{ position: [0, 1.2, 6.0], fov: 55 }}>
           <ambientLight intensity={1.5} />
           <directionalLight position={[10, 10, 5]} intensity={1} />
-          <AnimatedDumbBot currentPose={pose} onClick={handleBotClick} />
+          <AnimatedDumbBot 
+            currentPose={pose} 
+            isTalking={isMouthOpen} 
+            onClick={handleBotClick} 
+          />
         </Canvas>
       </div>
     </div>

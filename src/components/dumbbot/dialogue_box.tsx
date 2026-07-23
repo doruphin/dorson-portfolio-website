@@ -9,7 +9,8 @@ export function DialogueBox({
   isInput = false,
   inputValue = "",
   onInputChange,
-  onInputSubmit
+  onInputSubmit,
+  onMouthToggle
 }: { 
   dialogue: { text: string }[], 
   onComplete?: () => void, 
@@ -17,7 +18,8 @@ export function DialogueBox({
   isInput?: boolean,
   inputValue?: string,
   onInputChange?: (val: string) => void,
-  onInputSubmit?: (e: React.KeyboardEvent<HTMLInputElement>) => void
+  onInputSubmit?: (e: React.KeyboardEvent<HTMLInputElement>) => void,
+  onMouthToggle?: (isOpen: boolean) => void
 }) {
   const [displayedText, setDisplayedText] = useState("");
   const [doneSpeaking, setDoneSpeaking] = useState(false);
@@ -35,6 +37,7 @@ export function DialogueBox({
     if (isInput) {
       setDisplayedText(dialogue[textIndex].text);
       setDoneSpeaking(true);
+      if (onMouthToggle) onMouthToggle(false);
       return;
     }
 
@@ -47,8 +50,14 @@ export function DialogueBox({
     const refreshIntervalId = setInterval(() => {
       indRef.current++;
       setDisplayedText(currentText.substring(0, indRef.current));
+      
+      if (onMouthToggle) {
+        onMouthToggle(indRef.current % 6 < 3);
+      }
+
       if (indRef.current === currentText.length) {
         setDoneSpeaking(true);
+        if (onMouthToggle) onMouthToggle(false);
         clearInterval(refreshIntervalId);
         stop();
       }
@@ -56,9 +65,10 @@ export function DialogueBox({
 
     return () => {
       clearInterval(refreshIntervalId);
+      if (onMouthToggle) onMouthToggle(false);
       stop();
     };
-  }, [textIndex, dialogue, play, stop, onComplete, isInput]);
+  }, [textIndex, dialogue, play, stop, onComplete, isInput, onMouthToggle]);
 
   if (textIndex >= dialogue.length) return null;
 
