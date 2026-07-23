@@ -125,7 +125,7 @@ export function BackgroundScene() {
   if (isClosed) return null;
 
   return (
-    <div className="fixed bottom-6 right-12 z-0 flex items-end pointer-events-none">
+    <div className="fixed bottom-6 right-12 z-0 flex items-end pointer-events-none hidden xl:block">
       {/* Dialogue / Input Overlay */}
       <div className="absolute bottom-[45px] right-[-165px] pointer-events-auto z-50">
         {["STARTING", "INPUT", "ANSWERING"].includes(stage) && (
