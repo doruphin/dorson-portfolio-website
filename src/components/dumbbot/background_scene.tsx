@@ -1,6 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 import { useGLTF, useAnimations } from '@react-three/drei';
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 import { DialogueBox } from "./dialogue_box";
 import startingDialogue from "./starting_dialogue.json";
 import eightBallDialogue from "./8ball_dialogue.json";
@@ -38,6 +38,8 @@ export function AnimatedDumbBot({ currentPose, onClick } : {currentPose: string,
 
 useGLTF.preload("/models/villager/villager.gltf");
 
+const INPUT_DIALOGUE = [{text: "Ask me a yes or no question!"}];
+
 export function BackgroundScene() {
   const [stage, setStage] = useState<"HIDDEN" | "MODEL_ONLY" | "STARTING" | "IDLE" | "INPUT" | "ANSWERING">("HIDDEN");
   const [pose, setPose] = useState('Pose_Idle');
@@ -58,6 +60,8 @@ export function BackgroundScene() {
     }
   }, [stage]);
 
+  const handleComplete = useCallback(() => setStage("IDLE"), []);
+
   const handleBotClick = () => {
     if (stage === "IDLE") {
       setStage("INPUT");
@@ -75,26 +79,26 @@ export function BackgroundScene() {
     }
   };
 
-  const cycleRandomPose = () => {
+  const cycleRandomPose = useCallback(() => {
     if (poses.length > 0) {
       const randomPose = poses[Math.floor(Math.random() * poses.length)];
       setPose(randomPose);
     }
-  };
+  }, [poses]);
 
   return (
-    <div className="fixed bottom-6 right-12 z-[4900] flex items-end pointer-events-none">
+    <div className="fixed bottom-6 right-12 z-0 flex items-end pointer-events-none">
       {/* Dialogue / Input Overlay */}
       <div className="absolute bottom-[45px] right-[-165px] pointer-events-auto z-50">
         {["STARTING", "INPUT", "ANSWERING"].includes(stage) && (
           <div className="scale-[0.50] origin-bottom-right">
             <DialogueBox 
-              dialogue={stage === "STARTING" ? startingDialogue : stage === "INPUT" ? [{text: "Ask me a yes or no question!"}] : answer} 
+              dialogue={stage === "STARTING" ? startingDialogue : stage === "INPUT" ? INPUT_DIALOGUE : answer} 
               isInput={stage === "INPUT"}
               inputValue={inputValue}
               onInputChange={setInputValue}
               onInputSubmit={handleInputSubmit}
-              onComplete={() => setStage("IDLE")}
+              onComplete={handleComplete}
               onDialogChange={cycleRandomPose}
             />
           </div>

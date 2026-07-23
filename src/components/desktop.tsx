@@ -88,7 +88,7 @@ function GridLayout({
     return (
       <div
         key={icon.title || index}
-        className={`flex w-20 flex-col justify-start items-center hover:cursor-pointer text-center ${className ? className : ""}`}
+        className={`flex w-20 flex-col justify-start items-center hover:cursor-pointer text-center pointer-events-auto ${className ? className : ""}`}
         onClick={() => {
           addWindows(
             icon.title,
@@ -208,7 +208,7 @@ export function Desktop() {
   }, [addWindows]);
 
   return (
-  <div className="w-full h-screen z-1 flex flex-col flex-wrap content-start gap-8 p-4 absolute">
+  <div className="w-full h-screen z-1 flex flex-col flex-wrap content-start gap-8 p-4 absolute pointer-events-none">
     <GridLayout icons={desktopFolders} folder />
   </div>
 );
