@@ -41,6 +41,8 @@ useGLTF.preload("/models/villager/villager.gltf");
 const INPUT_DIALOGUE = [{text: "Ask me a yes or no question!"}];
 
 export function BackgroundScene() {
+  const [isClosed, setIsClosed] = useState(false);
+  const [showClose, setShowClose] = useState(false);
   const [stage, setStage] = useState<"HIDDEN" | "MODEL_ONLY" | "STARTING" | "IDLE" | "INPUT" | "ANSWERING">("HIDDEN");
   const [pose, setPose] = useState('Pose_Idle');
   const [answer, setAnswer] = useState<{text: string}[]>([{text: ""}]);
@@ -51,7 +53,7 @@ export function BackgroundScene() {
 
   useEffect(() => {
     if (stage === "HIDDEN") {
-      const timer = setTimeout(() => setStage("MODEL_ONLY"), 3000);
+      const timer = setTimeout(() => setStage("MODEL_ONLY"), 0);
       return () => clearTimeout(timer);
     }
     if (stage === "MODEL_ONLY") {
@@ -60,12 +62,22 @@ export function BackgroundScene() {
     }
   }, [stage]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => setShowClose(true), 5000);
+    return () => clearTimeout(timer);
+  }, []);
+
   const handleComplete = useCallback(() => setStage("IDLE"), []);
 
   const handleBotClick = () => {
     if (stage === "IDLE") {
       setStage("INPUT");
     }
+  };
+
+  const closeBot = () => {
+    setStage("HIDDEN");
+    setIsClosed(true);
   };
 
   const handleInputSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -85,6 +97,8 @@ export function BackgroundScene() {
       setPose(randomPose);
     }
   }, [poses]);
+
+  if (isClosed) return null;
 
   return (
     <div className="fixed bottom-6 right-12 z-0 flex items-end pointer-events-none">
@@ -111,6 +125,16 @@ export function BackgroundScene() {
           stage === "HIDDEN" ? "translate-y-[110%] opacity-0" : "translate-y-0 opacity-100"
         }`}
       >
+        <button 
+          onClick={closeBot}
+          className={`absolute top-3 right-[-25px] text-black! rounded-full w-8 h-8 flex items-center justify-center hover:scale-110 z-[60] border-white/30 backdrop-blur-sm cursor-pointer transition-all duration-1000 ease-in-out ${
+            showClose ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          }`}
+          title="Dismiss DumbBot"
+        >
+          <i className="bi bi-x text-xl leading-none font-bold" />
+        </button>
+
         <Canvas camera={{ position: [0, 1.2, 6.0], fov: 55 }}>
           <ambientLight intensity={1.5} />
           <directionalLight position={[10, 10, 5]} intensity={1} />
