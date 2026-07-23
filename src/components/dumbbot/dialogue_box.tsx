@@ -52,7 +52,7 @@ export function DialogueBox({
       setDisplayedText(currentText.substring(0, indRef.current));
       
       if (onMouthToggle) {
-        onMouthToggle(indRef.current % 6 < 3);
+        onMouthToggle(indRef.current % 8 < 4);
       }
 
       if (indRef.current === currentText.length) {
