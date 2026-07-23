@@ -64,7 +64,7 @@ export function BackgroundScene() {
   const [isClosed, setIsClosed] = useState(false);
   const [showClose, setShowClose] = useState(false);
   const [stage, setStage] = useState<"HIDDEN" | "MODEL_ONLY" | "STARTING" | "IDLE" | "INPUT" | "ANSWERING">("HIDDEN");
-  const [pose, setPose] = useState('Pose_Idle');
+  const [pose, setPose] = useState('IdleStill');
   const [answer, setAnswer] = useState<{text: string}[]>([{text: ""}]);
   const [inputValue, setInputValue] = useState("");
   const [isMouthOpen, setIsMouthOpen] = useState(false);
@@ -74,7 +74,7 @@ export function BackgroundScene() {
 
   useEffect(() => {
     if (stage === "HIDDEN") {
-      const timer = setTimeout(() => setStage("MODEL_ONLY"), 0);
+      const timer = setTimeout(() => setStage("MODEL_ONLY"), 3000);
       return () => clearTimeout(timer);
     }
     if (stage === "MODEL_ONLY") {
@@ -106,16 +106,19 @@ export function BackgroundScene() {
       const randomAnswer = eightBallDialogue[Math.floor(Math.random() * eightBallDialogue.length)];
       setAnswer([randomAnswer]);
       
-      cycleRandomPose();
+      cycleNextPose();
       setStage("ANSWERING");
       setInputValue("");
     }
   };
 
-  const cycleRandomPose = useCallback(() => {
+  const cycleNextPose = useCallback(() => {
     if (poses.length > 0) {
-      const randomPose = poses[Math.floor(Math.random() * poses.length)];
-      setPose(randomPose);
+      setPose(currentPose => {
+        const currentIndex = poses.indexOf(currentPose);
+        const nextIndex = (currentIndex + 1) % poses.length;
+        return poses[nextIndex];
+      });
     }
   }, [poses]);
 
@@ -134,7 +137,7 @@ export function BackgroundScene() {
               onInputChange={setInputValue}
               onInputSubmit={handleInputSubmit}
               onComplete={handleComplete}
-              onDialogChange={cycleRandomPose}
+              onDialogChange={cycleNextPose}
               onMouthToggle={setIsMouthOpen}
             />
           </div>

@@ -45,26 +45,32 @@ export function DialogueBox({
     setDisplayedText("");
     setDoneSpeaking(false);
     
-    play();
-    const currentText = dialogue[textIndex].text;
-    const refreshIntervalId = setInterval(() => {
-      indRef.current++;
-      setDisplayedText(currentText.substring(0, indRef.current));
-      
-      if (onMouthToggle) {
-        onMouthToggle(indRef.current % 8 < 4);
-      }
+    let refreshIntervalId: ReturnType<typeof setInterval>;
+    
+    const startDelay = textIndex === 0 ? 1000 : 0;
+    const startTimeout = setTimeout(() => {
+      play();
+      const currentText = dialogue[textIndex].text;
+      refreshIntervalId = setInterval(() => {
+        indRef.current++;
+        setDisplayedText(currentText.substring(0, indRef.current));
+        
+        if (onMouthToggle) {
+          onMouthToggle(indRef.current % 8 < 4);
+        }
 
-      if (indRef.current === currentText.length) {
-        setDoneSpeaking(true);
-        if (onMouthToggle) onMouthToggle(false);
-        clearInterval(refreshIntervalId);
-        stop();
-      }
-    }, 25);
+        if (indRef.current === currentText.length) {
+          setDoneSpeaking(true);
+          if (onMouthToggle) onMouthToggle(false);
+          clearInterval(refreshIntervalId);
+          stop();
+        }
+      }, 25);
+    }, startDelay);
 
     return () => {
-      clearInterval(refreshIntervalId);
+      clearTimeout(startTimeout);
+      if (refreshIntervalId) clearInterval(refreshIntervalId);
       if (onMouthToggle) onMouthToggle(false);
       stop();
     };

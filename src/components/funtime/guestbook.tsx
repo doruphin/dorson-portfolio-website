@@ -7,10 +7,10 @@ interface GuestBookEntry {
 
 const entries: GuestBookEntry[] = [
   {created_at: new Date(Date.now() - 86_400_000), id: 67, message: "This website rockz (˶>⩊<˶)", name: "x10n1c_r1pp3r"},
-  {created_at: new Date(Date.now() - 74534_400_000), id: 67, message: "spamspamspamspamspamspamspamspamspamspamspamspamspamspamspamspamspamspamspamspamspamspam", name: "pingus"},
-  {created_at: new Date(Date.now() - 5345_400_000), id: 67, message: "The material that this website presents is asinine and downright offensive. The mere thought that this was presented to me offends me greatly. Your resume will be burned in a pile along with the rest. Good day to you sir.", name: "Interviewer"},
-  {created_at: new Date(0), id: 67, message: "Please, you've got to help me. I've been trapped in this website for... gods, I don't know how long. Head to the Lucky Mare and knock on the basement door three times, then ask for 'Margy'. She'll know what to do. Please, you're my last hope, I can hear them coming for me... ", name: "Forgotten"},
-  {created_at: new Date(-10000), id: 67, message: "haha funi", name: "glue"},
+  {created_at: new Date(Date.now() - 74534_400_000), id: 68, message: "spamspamspamspamspamspamspamspamspamspamspamspamspamspamspamspamspamspamspamspamspamspam", name: "pingus"},
+  {created_at: new Date(Date.now() - 5345_400_000), id: 69, message: "The material that this website presents is asinine and downright offensive. The mere thought that this was presented to me offends me greatly. Your resume will be burned in a pile along with the rest. Good day to you sir.", name: "Interviewer"},
+  {created_at: new Date(0), id: 677, message: "Please, you've got to help me. I've been trapped in this website for... gods, I don't know how long. Head to the Lucky Mare and knock on the basement door three times, then ask for 'Margy'. She'll know what to do. Please, you're my last hope, I can hear them coming for me... ", name: "Forgotten"},
+  {created_at: new Date(-10000), id: 687, message: "haha funi", name: "glue"},
 ]
 
 export function GuestBook() {
