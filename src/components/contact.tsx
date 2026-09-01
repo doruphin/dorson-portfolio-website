@@ -76,7 +76,7 @@ export function Contact() {
                 label="Resume"
                 icon="bi-file-earmark-pdf-fill"
                 link="/documents/TangDorsonResume.pdf"
-                tag="As of 2026-01-30"
+                tag="As of 2026-08-31"
               />
             </div>
           </div>

@@ -79,6 +79,15 @@ export const projects: Project[] = [
       </iframe>
     ),
   },
+  {
+    link: "https://invent.kde.org/doruphin",
+    icon: "images/kdenlive.ico",
+    bg: "images/kdenlive_bg.png",
+    title: "Kdenlive/ MLT",
+    description:
+      "I've been trying to do more open source development lately, so Kdenlive was a natural place to start given that I actively use it for my YouTube channel. So far, I've had a staggering total of 1 (one) (I) contribution accepted into MLT (which is Kdenlive's underlying engine), so I think that means I'm legally allowed to call myself a contributer.",
+    technologies: ["C++", "OpenCV"],
+  },
 ];
 
 function ProjectWindow({ project }: { project: Project }) {

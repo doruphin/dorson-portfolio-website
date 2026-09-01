@@ -49,7 +49,7 @@ export function DialogueBox({
     
     const startDelay = textIndex === 0 ? 1000 : 0;
     const startTimeout = setTimeout(() => {
-      play();
+      // play();
       const currentText = dialogue[textIndex].text;
       refreshIntervalId = setInterval(() => {
         indRef.current++;

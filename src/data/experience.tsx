@@ -11,6 +11,15 @@ export type Experience = {
 
 export const experiences: Experience[] = [
   {
+    icon: "images/shift.ico",
+    title: "Shift",
+    subtitle: "C++ Chromium Developer",
+    description:
+      "My second internship was at Shift Technologies, a company under Redbrick. Shift Browser is a fork of Chromium, and if you have ever seen at its codebase, you know it's a labyrinth of concurrency, so I was able to get a lot of experience dealing with complex systems. Apart from strictly C++ development, I also worked on internal tooling via Github Actions scripts.",
+    bg: "images/shift_bg.png",
+    link: "https://www.rdbrck.com/shift",
+  },
+  {
     icon: "images/leanpub.ico",
     title: "Ruboss",
     subtitle: "Software Developer",
@@ -27,15 +36,6 @@ export const experiences: Experience[] = [
       "I am currently the software lead for UBC Subbots. We aim to create autonomous underwater vehicles for the annual international RoboSub competition. I work mostly with the controls system of the robot, and in our most recent competition, I led the team to the semi-finals.",
     bg: "images/subbots_bg.webp",
     link: "https://www.subbots.ca",
-  },
-  {
-    icon: "images/shift.ico",
-    title: "Shift",
-    subtitle: "C++ Developer",
-    description:
-      "My second internship was at Shift browser, under Redbrick. I worked as a C++ chromium developer.",
-    bg: "images/shift_bg.png",
-    link: "https://www.rdbrck.com/shift",
   },
 ];
 
