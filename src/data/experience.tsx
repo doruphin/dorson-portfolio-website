@@ -13,7 +13,7 @@ export const experiences: Experience[] = [
   {
     icon: "images/shift.ico",
     title: "Shift",
-    subtitle: "C++ Chromium Developer",
+    subtitle: "Software Developer (C++)",
     description:
       "My second internship was at Shift Technologies, a company under Redbrick. Shift Browser is a fork of Chromium, and if you have ever seen at its codebase, you know it's a labyrinth of concurrency, so I was able to get a lot of experience dealing with complex systems. Apart from strictly C++ development, I also worked on internal tooling via Github Actions scripts.",
     bg: "images/shift_bg.png",
