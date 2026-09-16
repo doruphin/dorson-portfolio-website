@@ -25,7 +25,7 @@ export function DOSon() {
 
   const windows = useWindowStore((state) => state.windows);
   const theme = useWindowStore((state) => state.theme);
-  const setTheme = useWindowStore((state) => state.setTheme);
+  // const setTheme = useWindowStore((state) => state.setTheme);
 
   // const cycleTheme = () => {
   //   if (theme === 'vista') setTheme('xp');
