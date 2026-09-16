@@ -27,11 +27,11 @@ export function DOSon() {
   const theme = useWindowStore((state) => state.theme);
   const setTheme = useWindowStore((state) => state.setTheme);
 
-  const cycleTheme = () => {
-    if (theme === 'vista') setTheme('xp');
-    else if (theme === 'xp') setTheme('win98');
-    else setTheme('vista');
-  };
+  // const cycleTheme = () => {
+  //   if (theme === 'vista') setTheme('xp');
+  //   else if (theme === 'xp') setTheme('win98');
+  //   else setTheme('vista');
+  // };
 
   return (
     <div className={`theme-${theme} h-screen w-full overflow-hidden`}>
