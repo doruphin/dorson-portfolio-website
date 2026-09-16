@@ -35,7 +35,7 @@ export function DOSon() {
 
   return (
     <div className={`theme-${theme} h-screen w-full overflow-hidden`}>
-      <div className="absolute top-4 right-4 z-[9999] hidden md:block">
+      {/* <div className="absolute top-4 right-4 z-[9999] hidden md:block">
         <button
           onClick={cycleTheme}
           className="bg-white/20 hover:bg-white/40 text-white p-2 rounded-full shadow-lg backdrop-blur-md border border-white/50 transition cursor-pointer flex items-center justify-center w-10 h-10 group"
@@ -43,7 +43,7 @@ export function DOSon() {
         >
           <i className="bi bi-arrow-repeat text-2xl leading-none group-hover:rotate-180 transition-transform duration-300"></i>
         </button>
-      </div>
+      </div> */}
       <div className="bg-red-500 md:hidden">
         WARNING: This website isn't fully optimized for mobile/smaller screens
         yet. You should still be able to explore though.
