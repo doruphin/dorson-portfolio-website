@@ -85,7 +85,7 @@ export const projects: Project[] = [
     bg: "images/kdenlive_bg.png",
     title: "Kdenlive/ MLT",
     description:
-      "I've been trying to do more open source development lately, so Kdenlive was a natural place to start given that I actively use it for my YouTube channel. So far, I've had a staggering combined total of 2 (two) (II) contributions accepted into Kdenlive and MLT (which is Kdenlive's underlying engine), so I think that means I'm legally allowed to call myself a contributer.",
+      "I've been trying to do more open source development lately, so Kdenlive was a natural place to start given that I actively use it for my YouTube channel. So far, I've had a staggering combined total of 3 (three) (III) contributions accepted into Kdenlive and MLT (which is Kdenlive's underlying engine), so I think that means I'm legally allowed to call myself a contributer.",
     technologies: ["C++", "OpenCV"],
   },
 ];
