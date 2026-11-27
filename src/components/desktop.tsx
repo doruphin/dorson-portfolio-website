@@ -112,6 +112,7 @@ export function Desktop() {
   const addWindows = useWindowStore((state) => state.addWindow);
 
   useEffect(() => {
+    if (window.innerWidth < 768) return;
     (async () => {
       let serverUp = false;
       try {
